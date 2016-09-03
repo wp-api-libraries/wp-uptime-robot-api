@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 
 /**
- * WP_UptimeRobot_API class.
+ * UptimeRobotApi class.
  */
-class WP_UptimeRobot_API {
+class UptimeRobotApi {
 
 }
