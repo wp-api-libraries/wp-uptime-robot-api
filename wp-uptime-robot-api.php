@@ -14,17 +14,40 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  */
 class UptimeRobotApi {
 
+	/**
+	 * API key
+	 *
+	 * @var string
+	 */
 	static private $api_key;
+
+	/**
+	 * Return format. XML or JSON.
+	 *
+	 * @var [string
+	 */
 	static private $format;
+
+	/**
+	 * Indicate if json respone should be wrapped in a callback.
+	 *
+	 * @var int
+	 */
 	static private $no_json_callback;
+
+	/**
+	 * URL to the API.
+	 *
+	 * @var string
+	 */
 	private $base_uri = 'https://api.uptimerobot.com';
 
 	/**
-	 * [__construct description]
+	 * Constructor.
 	 *
-	 * @param string  $api_key  API key to the account.
-	 * @param string  $format   XML or JSON.
-	 * @param integer $no_json_callback Return json wrapped in a callback.
+	 * @param [String] $api_key  API key to the account.
+	 * @param [String] $format   XML or JSON.
+	 * @param [Int]    $no_json_callback Return json wrapped in a callback.
 	 */
 	public function __construct( $api_key, $format = 'json', $no_json_callback = 1 ) {
 		static::$api_key = $api_key;
@@ -43,13 +66,13 @@ class UptimeRobotApi {
 	/**
 	 * Get monitor info.
 	 *
-	 * @param  [type] $monitors [description]
-	 * @param  [type] $types    [description]
-	 * @param  [type] $statuses [description]
-	 * @return [type]           [description]
+	 * @param  [type] $monitors [description].
+	 * @param  [type] $types    [description].
+	 * @param  [type] $statuses [description].
+	 * @return [type]           [description].
 	 */
 	protected function get_monitors( $monitors = null, $types = null, $statuses = null ) {
-
+		return true;
 	}
 
 	/**
