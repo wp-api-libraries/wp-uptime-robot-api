@@ -22,7 +22,9 @@ class UptimeRobotApi {
 	/**
 	 * [__construct description]
 	 *
-	 * @param [String] $api_key : API key to the account.
+	 * @param string  $api_key  API key to the account.
+	 * @param string  $format   XML or JSON.
+	 * @param integer $no_json_callback Return json wrapped in a callback.
 	 */
 	public function __construct( $api_key, $format = 'json', $no_json_callback = 1 ) {
 		static::$api_key = $api_key;
@@ -40,53 +42,58 @@ class UptimeRobotApi {
 	/**
 	 * [get_monitors description]
 	 */
-	protected function get_monitors( $monitors = null, $types = null, $statuses = null  ) {
+	protected function get_monitors( $monitors = null, $types = null, $statuses = null ) {
 
 	}
 
 	/**
-	 * [new_monitor description]
+	 * Create a new Monitor.
+	 *
+	 * @param  [String] $friendly_name  Required | Display name.
+	 * @param  [String] $url            Required | Domain to be monitored.
+	 * @param  [String] $type           Required | Monitor type.
+	 * @param  [type]   $sub_type       Optional | .
+	 * @param  [type]   $port           Optional | .
+	 * @param  [type]   $keyword_type   Optional | .
+	 * @param  [type]   $keyword_value  Optional | .
+	 * @param  [type]   $username       Optional | .
+	 * @param  [type]   $password       Optional | .
+	 * @param  [type]   $alert_contacts Optional | .
+	 * @param  [int]    $interval       Optional | .
+	 * @return [type]                  [description] .
 	 */
 	public function new_monitor( $friendly_name, $url, $type, $sub_type = null, $port = null, $keyword_type = null, $keyword_value = null, $username = null, $password = null, $alert_contacts = null, $interval = 3 ) {
 
-		if ( empty( $friendly_name ) || empty( $url ) || empty( $type ) ){
-	    return false;
-	  }
+		if ( empty( $friendly_name ) || empty( $url ) || empty( $type ) ) {
+			return false;
+		}
 
 		$friendly_name = urlencode( $friendly_name );
-	  $request = $this->base_uri . '/newMonitor?monitorFriendlyName=' . $friendly_name . '&monitorURL=' . $url . '&monitorType=' . $type;
+		$request = $this->base_uri . '/newMonitor?monitorFriendlyName=' . $friendly_name . '&monitorURL=' . $url . '&monitorType=' . $type;
 
-		if ( ! empty( $sub_type ) )
-		{
-				$request .= '&monitorSubType=' . $subType;
+		if ( ! empty( $sub_type ) ) {
+			$request .= '&monitorSubType=' . $subType;
 		}
-		if (!empty( $port ))
-		{
-				$request .= '&monitorPort=' . $port;
+		if ( ! empty( $port ) ) {
+			$request .= '&monitorPort=' . $port;
 		}
-		if (isset($keyword_type))
-		{
-				$request .= '&monitorKeywordType=' . $keywordType;
+		if ( isset( $keyword_type ) ) {
+			$request .= '&monitorKeywordType=' . $keywordType;
 		}
-		if (isset($keyword_value))
-		{
-				$request .= '&monitorKeywordValue=' . urlencode($keywordValue);
+		if ( isset( $keyword_value ) ) {
+			$request .= '&monitorKeywordValue=' . urlencode( $keywordValue );
 		}
-		if (isset($username))
-		{
-				$request .= '&monitorHTTPUsername=' . urlencode($HTTPUsername);
+		if ( isset( $username ) ) {
+			$request .= '&monitorHTTPUsername=' . urlencode( $HTTPUsername );
 		}
-		if (isset($password))
-		{
-				$request .= '&monitorHTTPPassword=' . urlencode($HTTPPassword);
+		if ( isset( $password ) ) {
+			$request .= '&monitorHTTPPassword=' . urlencode( $HTTPPassword );
 		}
-		if (!empty($alert_contacts))
-		{
-				$request .= '&monitorAlertContacts=' . $this->getImplode($alertContacts);
+		if ( ! empty( $alert_contacts ) ) {
+			$request .= '&monitorAlertContacts=' . $this->getImplode( $alertContacts );
 		}
-		if (!empty($interval))
-		{
-				 $request .= '&monitorInterval=' . $monitorInterval;
+		if ( ! empty( $interval ) ) {
+			$request .= '&monitorInterval=' . $monitorInterval;
 		}
 
 		return $this->__fetch( $request );
