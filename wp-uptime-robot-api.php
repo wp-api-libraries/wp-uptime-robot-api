@@ -55,14 +55,11 @@ class UptimeRobotApi {
 		static::$no_json_callback = $no_json_callback;
 	}
 
-	private function fetch( $request ){
+	private function fetch( $request ) {
 
-		if (preg_match("#\?#", $request))
-		{
-				$request .= '&apiKey=' . static::$apiKey;
-		}
-		else
-		{
+		if ( preg_match( '#\?#', $request ) ) {
+			$request .= '&apiKey=' . static::$apiKey;
+		} else {
 				$request .= '?apiKey=' .static::$apiKey;
 		}
 
@@ -71,20 +68,14 @@ class UptimeRobotApi {
 
 		$response = wp_remote_get( $request );
 
-		if ( static::$format === 'xml' )
-		{
+		if ( 'xml' === static::$format ) {
+			return $response;
+		} else {
+			if ( static::$no_json_callback ) {
+				return json_decode( $response );
+			} else {
 				return $response;
-		}
-		else
-		{
-				if ( static::$no_json_callback )
-				{
-						return json_decode( $response );
-				}
-				else
-				{
-						return $response;
-				}
+			}
 		}
 	}
 
