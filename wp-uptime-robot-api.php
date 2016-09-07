@@ -16,6 +16,7 @@ class UptimeRobotApi {
 
 	static private $api_key;
 	static private $format;
+	static private $no_json_callback;
 	private $base_uri = 'https://api.uptimerobot.com';
 
 	/**
@@ -23,9 +24,10 @@ class UptimeRobotApi {
 	 *
 	 * @param [String] $api_key : API key to the account.
 	 */
-	public function __construct( $api_key = null, $format = 'json' ) {
+	public function __construct( $api_key = null, $format = 'json', $no_json_callback = 1 ) {
 		static::$api_key = $api_key;
 		static::$format = $format;
+		static::$no_json_callback = $no_json_callback;
 	}
 
 	/**
