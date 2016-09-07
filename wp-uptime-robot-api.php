@@ -39,8 +39,14 @@ class UptimeRobotApi {
 
 	}
 
+
 	/**
-	 * [get_monitors description]
+	 * Get monitor info.
+	 *
+	 * @param  [type] $monitors [description]
+	 * @param  [type] $types    [description]
+	 * @param  [type] $statuses [description]
+	 * @return [type]           [description]
 	 */
 	protected function get_monitors( $monitors = null, $types = null, $statuses = null ) {
 
@@ -72,28 +78,28 @@ class UptimeRobotApi {
 		$request = $this->base_uri . '/newMonitor?monitorFriendlyName=' . $friendly_name . '&monitorURL=' . $url . '&monitorType=' . $type;
 
 		if ( ! empty( $sub_type ) ) {
-			$request .= '&monitorSubType=' . $subType;
+			$request .= '&monitorSubType=' . $sub_type;
 		}
 		if ( ! empty( $port ) ) {
 			$request .= '&monitorPort=' . $port;
 		}
 		if ( isset( $keyword_type ) ) {
-			$request .= '&monitorKeywordType=' . $keywordType;
+			$request .= '&monitorKeywordType=' . $keyword_type;
 		}
 		if ( isset( $keyword_value ) ) {
-			$request .= '&monitorKeywordValue=' . urlencode( $keywordValue );
+			$request .= '&monitorKeywordValue=' . urlencode( $keyword_value );
 		}
 		if ( isset( $username ) ) {
-			$request .= '&monitorHTTPUsername=' . urlencode( $HTTPUsername );
+			$request .= '&monitorHTTPUsername=' . urlencode( $username );
 		}
 		if ( isset( $password ) ) {
-			$request .= '&monitorHTTPPassword=' . urlencode( $HTTPPassword );
+			$request .= '&monitorHTTPPassword=' . urlencode( $password );
 		}
 		if ( ! empty( $alert_contacts ) ) {
-			$request .= '&monitorAlertContacts=' . $this->getImplode( $alertContacts );
+			$request .= '&monitorAlertContacts=' . $this->getImplode( $alert_contacts );
 		}
 		if ( ! empty( $interval ) ) {
-			$request .= '&monitorInterval=' . $monitorInterval;
+			$request .= '&monitorInterval=' . $interval;
 		}
 
 		return $this->__fetch( $request );
