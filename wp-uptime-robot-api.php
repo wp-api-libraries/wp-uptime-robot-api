@@ -14,13 +14,18 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  */
 class UptimeRobotApi {
 
+	static private $api_key;
+	static private $format;
+	private $base_uri = 'https://api.uptimerobot.com';
+
 	/**
 	 * [__construct description]
 	 *
 	 * @param [String] $api_key : API key to the account.
 	 */
-	public function __construct( $api_key = null ) {
-
+	public function __construct( $api_key = null, $format = 'json' ) {
+		static::$api_key = $api_key;
+		static::$format = $format;
 	}
 
 	/**
