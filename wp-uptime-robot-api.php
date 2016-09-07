@@ -55,6 +55,39 @@ class UptimeRobotApi {
 		static::$no_json_callback = $no_json_callback;
 	}
 
+	private function fetch( $request ){
+
+		if (preg_match("#\?#", $request))
+		{
+				$request .= '&apiKey=' . static::$apiKey;
+		}
+		else
+		{
+				$request .= '?apiKey=' .static::$apiKey;
+		}
+
+		$request .= '&format=' . static::$format;
+		$request .= '&noJsonCallback=' . static::$no_json_callback;
+
+		$response = wp_remote_get( $request );
+
+		if ( static::$format === 'xml' )
+		{
+				return $response;
+		}
+		else
+		{
+				if ( static::$no_json_callback )
+				{
+						return json_decode( $response );
+				}
+				else
+				{
+						return $response;
+				}
+		}
+	}
+
 	/**
 	 * [get_account_details description]
 	 */
@@ -125,7 +158,7 @@ class UptimeRobotApi {
 			$request .= '&monitorInterval=' . $interval;
 		}
 
-		return $this->__fetch( $request );
+		return $this->fetch( $request );
 	}
 
 	/**
