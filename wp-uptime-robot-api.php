@@ -73,16 +73,13 @@ class UptimeRobotApi {
 		$request .= '&noJsonCallback=' . static::$no_json_callback;
 
 		$response = wp_remote_get( $request );
+		$body = wp_remote_retrieve_body( $response );
 
-		if ( 'xml' === static::$format ) {
-			return $response;
-		} else {
-			if ( static::$no_json_callback ) {
-				return json_decode( $response );
-			} else {
-				return $response;
-			}
+		if ( static::$no_json_callback ) {
+			return json_decode( $body );
 		}
+
+		return $body;
 	}
 
 	/**
