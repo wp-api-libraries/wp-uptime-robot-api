@@ -55,12 +55,18 @@ class UptimeRobotApi {
 		static::$no_json_callback = $no_json_callback;
 	}
 
+	/**
+	 * Fetch the request from the API.
+	 *
+	 * @param  [String] $request Request URL.
+	 * @return [type]          [description]
+	 */
 	private function fetch( $request ) {
 
 		if ( preg_match( '#\?#', $request ) ) {
-			$request .= '&apiKey=' . static::$apiKey;
+			$request .= '&apiKey=' . static::$api_key;
 		} else {
-				$request .= '?apiKey=' .static::$apiKey;
+				$request .= '?apiKey=' .static::$api_key;
 		}
 
 		$request .= '&format=' . static::$format;
