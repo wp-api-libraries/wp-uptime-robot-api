@@ -51,7 +51,7 @@ class UptimeRobotApi {
 	 */
 	public function __construct( $api_key, $format = 'json', $no_json_callback = 1 ) {
 		static::$api_key = $api_key;
-		static::$format = $format;
+		static::$format  = $format;
 		static::$no_json_callback = $no_json_callback;
 	}
 
@@ -66,7 +66,7 @@ class UptimeRobotApi {
 		if ( preg_match( '#\?#', $request ) ) {
 			$request .= '&apiKey=' . static::$api_key;
 		} else {
-				$request .= '?apiKey=' .static::$api_key;
+			$request .= '?apiKey=' .static::$api_key;
 		}
 
 		$request .= '&format=' . static::$format;
@@ -124,7 +124,7 @@ class UptimeRobotApi {
 	public function new_monitor( $friendly_name, $url, $type, $sub_type = null, $port = null, $keyword_type = null, $keyword_value = null, $username = null, $password = null, $alert_contacts = null, $interval = 3 ) {
 
 		if ( empty( $friendly_name ) || empty( $url ) || empty( $type ) ) {
-			return false;
+			return new WP_Error( 'required-fields', __( "Required fields are empty", 'text-domain' ) );
 		}
 
 		$friendly_name = urlencode( $friendly_name );
