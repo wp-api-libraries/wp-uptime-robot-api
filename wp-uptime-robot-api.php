@@ -100,13 +100,45 @@ class UptimeRobotApi {
 	/**
 	 * Get monitor info.
 	 *
-	 * @param  [type] $monitors [description].
-	 * @param  [type] $types    [description].
-	 * @param  [type] $statuses [description].
-	 * @return [type]           [description].
+	 * @param  [String] $search                [description].
+	 * @param  [type]   $monitors              [description].
+	 * @param  [type]   $custom_up_ratio       [description].
+	 * @param  [Int]    $logs                  [description].
+	 * @param  [Int]    $response_times        [description].
+	 * @param  [Int]    $response_time_average [description].
+	 * @param  [Int]    $alert_contacts        [description].
+	 * @param  [Int]    $show_alert_contacts   [description].
+	 * @param  [Int]    $show_timezone         [description].
+	 * @return [type]                          [description]
 	 */
-	protected function get_monitors( $monitors = null, $types = null, $statuses = null ) {
-		return true;
+	public function get_monitors( $search = '', $monitors = null, $custom_up_ratio = null, $logs = 0, $response_times = 0, $response_time_average = 0, $alert_contacts = 0, $show_alert_contacts = 0, $show_timezone = 0 ) {
+		$request = $this->base_uri . '/getMonitors';
+
+		$request .= '?logs=' . $logs . '&responseTimes=' . $response_times . '&responseTimesAverage=' . $response_time_average . '&alertContacts=' . $alert_contacts . '&showMonitorAlertContacts=' . $show_alert_contacts . '&showTimezone=' . $show_timezone;
+
+		if ( ! empty( $search ) ) {
+			$request .= '&search=' . htmlspecialchars( $search );
+		}
+		if ( ! empty( $monitors ) ) {
+				$request .= '&monitors=' . $this->get_implode( $monitors );
+		}
+		if ( ! empty( $custom_up_ratio ) ) {
+				$request .= '&customUptimeRatio=' . $this->get_implode( $custom_up_ratio );
+		}
+		$result = $this->fetch( $request );
+		$limit = $result->limit;
+		$offset = $result->offset;
+		$total = $result->total;
+
+		while ( ($limit * $offset) + $limit < $total ) {
+				$result->limit = ($limit * $offset) + $limit;
+				$offset++;
+				$append = $this->fetch( $request.'&offset='.($offset * $limit) );
+				$result->monitors->monitor = array_merge( $result->monitors->monitor, $append->monitors->monitor );
+		}
+		$result->limit = ( $limit * $offset ) + $limit;
+
+		return $result;
 	}
 
 	/**
