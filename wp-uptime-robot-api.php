@@ -75,7 +75,7 @@ class UptimeRobotApi {
 		$response = wp_remote_get( $request );
 		$code = wp_remote_retrieve_response_code( $response );
 
-		if( 200 !== $code ){
+		if ( 200 !== $code ) {
 			return new WP_Error( 'response-error', sprintf( __( 'Server response code: %d', 'text-domain' ), $code ) );
 		}
 
@@ -127,7 +127,7 @@ class UptimeRobotApi {
 	public function new_monitor( $friendly_name, $url, $type, $alert_contacts = null, $sub_type = null, $port = null, $keyword_type = null, $keyword_value = null, $username = null, $password = null, $interval = 3 ) {
 
 		if ( empty( $friendly_name ) || empty( $url ) || empty( $type ) ) {
-			return new WP_Error( 'required-fields', __( "Required fields are empty", 'text-domain' ) );
+			return new WP_Error( 'required-fields', __( 'Required fields are empty', 'text-domain' ) );
 		}
 
 		$friendly_name = urlencode( $friendly_name );
@@ -330,12 +330,10 @@ class UptimeRobotApi {
 	 * @param array|int $var
 	 * @return type string
 	 */
-	private function getImplode($var)
-	{
-			if (is_array($var))
-			{
-					return implode('-', $var);
-			}
+	private function getImplode( $var ) {
+		if ( is_array( $var ) ) {
+			return implode( '-', $var );
+		}
 			return $var;
 	}
 }
