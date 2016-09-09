@@ -135,7 +135,7 @@ class UptimeRobotApi {
 		$request = $this->base_uri . '/newMonitor?monitorFriendlyName=' . $friendly_name . '&monitorURL=' . $url . '&monitorType=' . $type;
 
 		if ( ! empty( $alert_contacts ) ) {
-			$request .= '&monitorAlertContacts=' . $this->getImplode( $alert_contacts );
+			$request .= '&monitorAlertContacts=' . $this->get_implode( $alert_contacts );
 		}
 		if ( ! empty( $sub_type ) ) {
 			$request .= '&monitorSubType=' . $sub_type;
@@ -326,15 +326,17 @@ class UptimeRobotApi {
 	}
 
 	/**
-	 * Array or int to string with separator (-)
+	 * Implode the array and deliminate the values with '-' or return the variable
+	 * as is.
 	 *
-	 * @param array|int $var
-	 * @return type string
+	 * @param  [Array|String] $var Array to be imploded or a string to be sent back.
+	 * @return [String]            Imploded string.
 	 */
-	private function getImplode( $var ) {
+	private function get_implode( $var ) {
 		if ( is_array( $var ) ) {
 			return implode( '-', $var );
 		}
-			return $var;
+
+		return $var;
 	}
 }
