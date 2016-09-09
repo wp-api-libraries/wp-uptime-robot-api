@@ -73,9 +73,15 @@ class UptimeRobotApi {
 		$request .= '&noJsonCallback=' . static::$no_json_callback;
 
 		$response = wp_remote_get( $request );
+		$code = wp_remote_retrieve_response_code( $response );
+
+		if( 200 !== $code ){
+			return new WP_Error( 'response-error', sprintf( __( 'Server response code: %d', 'text-domain' ), $code ) );
+		}
+
 		$body = wp_remote_retrieve_body( $response );
 
-		if ( static::$no_json_callback ) {
+		if ( 'json' === static::$format && static::$no_json_callback  ) {
 			return json_decode( $body );
 		}
 
@@ -108,17 +114,17 @@ class UptimeRobotApi {
 	 * @param  [String] $friendly_name  Required | Display name.
 	 * @param  [String] $url            Required | Domain to be monitored.
 	 * @param  [String] $type           Required | Monitor type.
+	 * @param  [type]   $alert_contacts Optional | .
 	 * @param  [type]   $sub_type       Optional | .
 	 * @param  [type]   $port           Optional | .
 	 * @param  [type]   $keyword_type   Optional | .
 	 * @param  [type]   $keyword_value  Optional | .
 	 * @param  [type]   $username       Optional | .
 	 * @param  [type]   $password       Optional | .
-	 * @param  [type]   $alert_contacts Optional | .
 	 * @param  [int]    $interval       Optional | .
 	 * @return [type]                  [description] .
 	 */
-	public function new_monitor( $friendly_name, $url, $type, $sub_type = null, $port = null, $keyword_type = null, $keyword_value = null, $username = null, $password = null, $alert_contacts = null, $interval = 3 ) {
+	public function new_monitor( $friendly_name, $url, $type, $alert_contacts = null, $sub_type = null, $port = null, $keyword_type = null, $keyword_value = null, $username = null, $password = null, $interval = 3 ) {
 
 		if ( empty( $friendly_name ) || empty( $url ) || empty( $type ) ) {
 			return new WP_Error( 'required-fields', __( "Required fields are empty", 'text-domain' ) );
@@ -127,6 +133,9 @@ class UptimeRobotApi {
 		$friendly_name = urlencode( $friendly_name );
 		$request = $this->base_uri . '/newMonitor?monitorFriendlyName=' . $friendly_name . '&monitorURL=' . $url . '&monitorType=' . $type;
 
+		if ( ! empty( $alert_contacts ) ) {
+			$request .= '&monitorAlertContacts=' . $this->getImplode( $alert_contacts );
+		}
 		if ( ! empty( $sub_type ) ) {
 			$request .= '&monitorSubType=' . $sub_type;
 		}
@@ -144,9 +153,6 @@ class UptimeRobotApi {
 		}
 		if ( isset( $password ) ) {
 			$request .= '&monitorHTTPPassword=' . urlencode( $password );
-		}
-		if ( ! empty( $alert_contacts ) ) {
-			$request .= '&monitorAlertContacts=' . $this->getImplode( $alert_contacts );
 		}
 		if ( ! empty( $interval ) ) {
 			$request .= '&monitorInterval=' . $interval;
@@ -316,5 +322,20 @@ class UptimeRobotApi {
 		}
 
 		return $msg;
+	}
+
+	/**
+	 * Array or int to string with separator (-)
+	 *
+	 * @param array|int $var
+	 * @return type string
+	 */
+	private function getImplode($var)
+	{
+			if (is_array($var))
+			{
+					return implode('-', $var);
+			}
+			return $var;
 	}
 }
