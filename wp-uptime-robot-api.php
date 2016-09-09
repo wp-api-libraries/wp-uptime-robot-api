@@ -92,7 +92,8 @@ class UptimeRobotApi {
 	 * [get_account_details description]
 	 */
 	public function get_account_details() {
-
+		$request = $this->base_uri . '/getAccountDetails';
+		return $this->fetch( $request );
 	}
 
 
