@@ -170,10 +170,19 @@ class UptimeRobotApi {
 	}
 
 	/**
-	 * [delete_monitor description]
+	 * Delete a monitor.
+	 *
+	 * @param  [Int] $monitor_id  ID of monitor.
+	 * @return [type]             [description]
 	 */
-	protected function delete_monitor() {
+	protected function delete_monitor( $monitor_id ) {
+		if ( empty( $monitor_id ) ) {
+			return new WP_Error( 'required-fields', __( 'Required fields are empty', 'text-domain' ) );
+		}
 
+		$request = $this->base_uri . '/deleteMonitor?monitorID=' . $monitor_id;
+
+		return $this->fetch( $request );
 	}
 
 	/**
@@ -185,9 +194,18 @@ class UptimeRobotApi {
 
 	/**
 	 * [get_alert_contacts description]
+	 *
+	 * @param  [type] $alert_contacts [description].
+	 * @return [type]                 [description]
 	 */
-	protected function get_alert_contacts() {
+	public function get_alert_contacts( $alert_contacts = null ) {
+		$request = $this->base_uri . '/getAlertContacts';
 
+		if ( ! empty( $alertcontacts ) ) {
+			$request .= '?alertcontacts=' . $this->get_implode( $alert_contacts );
+		}
+
+		return $this->fetch( $request );
 	}
 
 	/**
