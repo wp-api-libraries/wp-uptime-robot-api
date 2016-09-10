@@ -218,13 +218,6 @@ class UptimeRobotApi {
 	}
 
 	/**
-	 * [reset_monitor description]
-	 */
-	protected function reset_monitor() {
-
-	}
-
-	/**
 	 * [get_alert_contacts description]
 	 *
 	 * @param  [type] $alert_contacts [description].
