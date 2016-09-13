@@ -64,9 +64,9 @@ class UptimeRobotApi {
 	private function fetch( $request ) {
 
 		if ( preg_match( '#\?#', $request ) ) {
-			$request .= '&apiKey=' . static::$api_key  . "&rand=" . mt_rand(1000000, 10000000);
+			$request .= '&apiKey=' . static::$api_key  . '&rand=' . mt_rand( 1000000, 10000000 );
 		} else {
-			$request .= '?apiKey=' .static::$api_key  . "&rand=" . mt_rand(1000000, 10000000);
+			$request .= '?apiKey=' .static::$api_key  . '&rand=' . mt_rand( 1000000, 10000000 );
 		}
 
 		$request .= '&format=' . static::$format;
@@ -127,7 +127,7 @@ class UptimeRobotApi {
 		}
 		$result = $this->fetch( $request );
 
-		if( isset( $result->limit ) && isset( $result->offset ) && isset( $result->total )){
+		if ( isset( $result->limit ) && isset( $result->offset ) && isset( $result->total ) ) {
 			$limit = $result->limit;
 			$offset = $result->offset;
 			$total = $result->total;
@@ -218,38 +218,38 @@ class UptimeRobotApi {
 
 		$request = $this->base_uri . '/editMonitor?monitorID=' . $monitor_id;
 
-		if (isset($monitor_status)){
-	    $request .= '&monitorStatus=' . $monitor_status;
+		if ( isset( $monitor_status ) ) {
+			$request .= '&monitorStatus=' . $monitor_status;
 		}
-		if (isset($friendly_name)){
-		  $request .= '&monitorFriendlyName=' . urlencode($friendly_name);
+		if ( isset( $friendly_name ) ) {
+			$request .= '&monitorFriendlyName=' . urlencode( $friendly_name );
 		}
-		if (isset($url)){
-		  $request .= '&monitorURL=' . $url;
+		if ( isset( $url ) ) {
+			$request .= '&monitorURL=' . $url;
 		}
-		if (isset($type)){
-		  $request .= '&monitorType=' . $type;
+		if ( isset( $type ) ) {
+			$request .= '&monitorType=' . $type;
 		}
-		if (isset($sub_type)){
-		  $request .= '&monitorSubType=' . $sub_type;
+		if ( isset( $sub_type ) ) {
+			$request .= '&monitorSubType=' . $sub_type;
 		}
-		if (isset($port)){
-		  $request .= '&monitorPort=' . $port;
+		if ( isset( $port ) ) {
+			$request .= '&monitorPort=' . $port;
 		}
-		if (isset($keyword_type)){
-		  $request .= '&monitorKeywordType=' . $keyword_type;
+		if ( isset( $keyword_type ) ) {
+			$request .= '&monitorKeywordType=' . $keyword_type;
 		}
-		if (isset($keyword_value)){
-		  $request .= '&monitorKeywordValue=' . urlencode($keyword_value);
+		if ( isset( $keyword_value ) ) {
+			$request .= '&monitorKeywordValue=' . urlencode( $keyword_value );
 		}
-		if (isset($username)){
-		  $request .= '&monitorHTTPUsername=' . urlencode($username);
+		if ( isset( $username ) ) {
+			$request .= '&monitorHTTPUsername=' . urlencode( $username );
 		}
-		if (isset($password)){
-		  $request .= '&monitorHTTPPassword=' . urlencode($password);
+		if ( isset( $password ) ) {
+			$request .= '&monitorHTTPPassword=' . urlencode( $password );
 		}
-		if (!empty($alert_contacts)){
-		  $request .= '&monitorAlertContacts=' . $this->get_implode($alert_contacts);
+		if ( ! empty( $alert_contacts ) ) {
+			$request .= '&monitorAlertContacts=' . $this->get_implode( $alert_contacts );
 		}
 
 		return $this->fetch( $request );
