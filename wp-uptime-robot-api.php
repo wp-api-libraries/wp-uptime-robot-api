@@ -64,9 +64,9 @@ class UptimeRobotApi {
 	private function fetch( $request ) {
 
 		if ( preg_match( '#\?#', $request ) ) {
-			$request .= '&apiKey=' . static::$api_key;
+			$request .= '&apiKey=' . static::$api_key  . "&rand=" . mt_rand(1000000, 10000000);
 		} else {
-			$request .= '?apiKey=' .static::$api_key;
+			$request .= '?apiKey=' .static::$api_key  . "&rand=" . mt_rand(1000000, 10000000);
 		}
 
 		$request .= '&format=' . static::$format;
@@ -126,17 +126,20 @@ class UptimeRobotApi {
 				$request .= '&customUptimeRatio=' . $this->get_implode( $custom_up_ratio );
 		}
 		$result = $this->fetch( $request );
-		$limit = $result->limit;
-		$offset = $result->offset;
-		$total = $result->total;
 
-		while ( ($limit * $offset) + $limit < $total ) {
+		if( isset( $result->limit ) && isset( $result->offset ) && isset( $result->total )){
+			$limit = $result->limit;
+			$offset = $result->offset;
+			$total = $result->total;
+
+			while ( ($limit * $offset) + $limit < $total ) {
 				$result->limit = ($limit * $offset) + $limit;
 				$offset++;
 				$append = $this->fetch( $request.'&offset='.($offset * $limit) );
 				$result->monitors->monitor = array_merge( $result->monitors->monitor, $append->monitors->monitor );
+			}
+			$result->limit = ( $limit * $offset ) + $limit;
 		}
-		$result->limit = ( $limit * $offset ) + $limit;
 
 		return $result;
 	}
@@ -196,9 +199,60 @@ class UptimeRobotApi {
 
 	/**
 	 * [edit_monitor description]
+	 *
+	 * @param  [type] $monitor_id     [description].
+	 * @param  [type] $monitor_status [description].
+	 * @param  [type] $friendly_name  [description].
+	 * @param  [type] $url            [description].
+	 * @param  [type] $type           [description].
+	 * @param  [type] $alert_contacts [description].
+	 * @param  [type] $sub_type       [description].
+	 * @param  [type] $port           [description].
+	 * @param  [type] $keyword_type   [description].
+	 * @param  [type] $keyword_value  [description].
+	 * @param  [type] $username       [description].
+	 * @param  [type] $password       [description].
+	 * @return [type]                 [description]
 	 */
-	protected function edit_monitor() {
+	public function edit_monitor( $monitor_id, $monitor_status = null, $friendly_name = null, $url = null, $type = null, $alert_contacts = null, $sub_type = null, $port = null, $keyword_type = null, $keyword_value = null, $username = null, $password = null ) {
 
+		$request = $this->base_uri . '/editMonitor?monitorID=' . $monitor_id;
+
+		if (isset($monitor_status)){
+	    $request .= '&monitorStatus=' . $monitor_status;
+		}
+		if (isset($friendly_name)){
+		  $request .= '&monitorFriendlyName=' . urlencode($friendly_name);
+		}
+		if (isset($url)){
+		  $request .= '&monitorURL=' . $url;
+		}
+		if (isset($type)){
+		  $request .= '&monitorType=' . $type;
+		}
+		if (isset($sub_type)){
+		  $request .= '&monitorSubType=' . $sub_type;
+		}
+		if (isset($port)){
+		  $request .= '&monitorPort=' . $port;
+		}
+		if (isset($keyword_type)){
+		  $request .= '&monitorKeywordType=' . $keyword_type;
+		}
+		if (isset($keyword_value)){
+		  $request .= '&monitorKeywordValue=' . urlencode($keyword_value);
+		}
+		if (isset($username)){
+		  $request .= '&monitorHTTPUsername=' . urlencode($username);
+		}
+		if (isset($password)){
+		  $request .= '&monitorHTTPPassword=' . urlencode($password);
+		}
+		if (!empty($alert_contacts)){
+		  $request .= '&monitorAlertContacts=' . $this->get_implode($alert_contacts);
+		}
+
+		return $this->fetch( $request );
 	}
 
 	/**
@@ -207,7 +261,7 @@ class UptimeRobotApi {
 	 * @param  [Int] $monitor_id  ID of monitor.
 	 * @return [type]             [description]
 	 */
-	protected function delete_monitor( $monitor_id ) {
+	public function delete_monitor( $monitor_id ) {
 		if ( empty( $monitor_id ) ) {
 			return new WP_Error( 'required-fields', __( 'Required fields are empty', 'text-domain' ) );
 		}
