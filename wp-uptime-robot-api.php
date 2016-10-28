@@ -75,9 +75,9 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		private function fetch( $request ) {
 
 			if ( preg_match( '#\?#', $request ) ) {
-				$request .= '&apiKey=' . static::$api_key  . '&rand=' . mt_rand( 1000000, 10000000 );
+				$request .= '&apiKey=' . static::$api_key . '&rand=' . mt_rand( 1000000, 10000000 );
 			} else {
-				$request .= '?apiKey=' .static::$api_key  . '&rand=' . mt_rand( 1000000, 10000000 );
+				$request .= '?apiKey=' . static::$api_key . '&rand=' . mt_rand( 1000000, 10000000 );
 			}
 
 			$request .= '&format=' . static::$format;
@@ -146,7 +146,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 				while ( ($limit * $offset) + $limit < $total ) {
 					$result->limit = ($limit * $offset) + $limit;
 					$offset++;
-					$append = $this->fetch( $request.'&offset='.($offset * $limit) );
+					$append = $this->fetch( $request . '&offset=' . ($offset * $limit) );
 					$result->monitors->monitor = array_merge( $result->monitors->monitor, $append->monitors->monitor );
 				}
 				$result->limit = ( $limit * $offset ) + $limit;
