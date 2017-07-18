@@ -2,7 +2,8 @@
 /**
  * WP-UptimeRobot-API
  *
- * @package WP-UptimeRobot-API
+ * @link https://uptimerobot.com/api APIv2 Documentation.
+ * @package WP-API-Libraries\WP-UptimeRobot-API
  */
 
 /*
@@ -77,7 +78,6 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 * Fetch the request from the API.
 		 *
 		 * @param  [String] $request Request URL.
-		 * @param  [String] $args    Request args.
 		 * @return [type]          [description]
 		 */
 		private function fetch( $request ) {
@@ -85,7 +85,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 			$this->args['body']['api_key'] = static::$api_key;
 			$this->args['body']['format'] = static::$format;
 
-			if( null !== static::$callback ){
+			if ( null !== static::$callback ) {
 				$this->args['body']['callback'] = static::$callback;
 			}
 
@@ -120,7 +120,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 * @param  Array $args Array of arguments to send into get_monitors.
 		 * @return Array       Array of monitor info.
 		 */
-		 public function get_monitors( $args = array() ) {
+		public function get_monitors( $args = array() ) {
 			// Set route.
 			$request = $this->base_uri . '/getMonitors';
 
@@ -128,10 +128,10 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 			if ( isset( $args['monitors'] ) ) {
 				$this->args['body']['monitors'] = $this->get_implode( $args['monitors'] );
 			}
-			if( isset( $args['types'] ) ){
+			if ( isset( $args['types'] ) ) {
 				$this->args['body']['types'] = $this->get_implode( $args['types'] );
 			}
-			if( isset( $args['statuses'] ) ){
+			if ( isset( $args['statuses'] ) ) {
 				$this->args['body']['statuses'] = $this->get_implode( $args['statuses'] );
 			}
 			if ( isset( $args['custom_uptime_ratios'] ) ) {
@@ -143,52 +143,52 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 			if ( isset( $args['all_time_uptime_ratio'] ) ) {
 				$this->args['body']['all_time_uptime_ratio'] = $args['all_time_uptime_ratio'];
 			}
-			if( isset( $args['all_time_uptime_durations'] ) ){
+			if ( isset( $args['all_time_uptime_durations'] ) ) {
 				$this->args['body']['all_time_uptime_durations'] = $args['all_time_uptime_durations'];
 			}
-			if( isset( $args['logs'] ) ){
+			if ( isset( $args['logs'] ) ) {
 				$this->args['body']['logs'] = $args['logs'];
 			}
-			if( isset( $args['logs_start_date'] ) ){
+			if ( isset( $args['logs_start_date'] ) ) {
 				$this->args['body']['logs_start_date'] = $args['logs_start_date'];
 			}
-			if( isset( $args['logs_end_date'] ) ){
+			if ( isset( $args['logs_end_date'] ) ) {
 				$this->args['body']['logs_end_date'] = $args['logs_end_date'];
 			}
-			if( isset( $args['logs_limit'] ) ){
+			if ( isset( $args['logs_limit'] ) ) {
 				$this->args['body']['logs_limit'] = $args['logs_limit'];
 			}
-			if( isset( $args['response_times'] ) ){
+			if ( isset( $args['response_times'] ) ) {
 				$this->args['body']['response_times'] = $args['response_times'];
 			}
-			if( isset( $args['response_times_limit'] ) ){
+			if ( isset( $args['response_times_limit'] ) ) {
 				$this->args['body']['response_times_limit'] = $args['response_times_limit'];
 			}
-			if( isset( $args['response_times_average'] ) ){
+			if ( isset( $args['response_times_average'] ) ) {
 				$this->args['body']['response_times_average'] = $args['response_times_average'];
 			}
-			if( isset( $args['response_times_start_date'] ) ){
+			if ( isset( $args['response_times_start_date'] ) ) {
 				$this->args['body']['response_times_start_date'] = $args['response_times_start_date'];
 			}
-			if( isset( $args['response_times_end_date'] ) ){
+			if ( isset( $args['response_times_end_date'] ) ) {
 				$this->args['body']['response_times_end_date'] = $args['response_times_end_date'];
 			}
-			if( isset( $args['alert_contacts'] ) ){
+			if ( isset( $args['alert_contacts'] ) ) {
 				$this->args['body']['alert_contacts'] = $args['alert_contacts'];
 			}
-			if( isset( $args['mwindows'] ) ){
+			if ( isset( $args['mwindows'] ) ) {
 				$this->args['body']['mwindows'] = $args['mwindows'];
 			}
-			if( isset( $args['timezone'] ) ){
+			if ( isset( $args['timezone'] ) ) {
 				$this->args['body']['timezone'] = $args['timezone'];
 			}
-			if( isset( $args['offset'] ) ){
+			if ( isset( $args['offset'] ) ) {
 				$this->args['body']['offset'] = $args['offset'];
 			}
-			if( isset( $args['limit'] ) ){
+			if ( isset( $args['limit'] ) ) {
 				$this->args['body']['limit'] = $args['limit'];
 			}
-			if( isset( $args['search'] ) ){
+			if ( isset( $args['search'] ) ) {
 				$this->args['body']['search'] = htmlspecialchars( $args['search'] );
 			}
 
@@ -207,7 +207,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 					$this->args['body']['offset'] = ($offset * $limit);
 					$append = $this->fetch( $request );
 
-					if( 'fail' === $append->stat ){ break; }
+					if ( 'fail' === $append->stat ) { break; }
 
 					$result->monitors = array_merge( $result->monitors, $append->monitors );
 				}
