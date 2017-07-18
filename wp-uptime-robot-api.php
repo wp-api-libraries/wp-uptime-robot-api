@@ -147,6 +147,9 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 					$result->limit = ($limit * $offset) + $limit;
 					$offset++;
 					$append = $this->fetch( $request . '&offset=' . ($offset * $limit) );
+
+					if( 'fail' === $append->stat ){ break; }
+
 					$result->monitors->monitor = array_merge( $result->monitors->monitor, $append->monitors->monitor );
 				}
 				$result->limit = ( $limit * $offset ) + $limit;
