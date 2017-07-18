@@ -44,46 +44,52 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 *
 		 * @var int
 		 */
-		static private $no_json_callback;
+		static private $callback;
 
 		/**
 		 * URL to the API.
 		 *
 		 * @var string
 		 */
-		private $base_uri = 'https://api.uptimerobot.com';
+		private $base_uri = 'https://api.uptimerobot.com/v2';
+
+		/**
+		 * Request POST args.
+		 *
+		 * @var Array
+		 */
+		private $args = array();
 
 		/**
 		 * Constructor.
 		 *
 		 * @param [String] $api_key  API key to the account.
 		 * @param [String] $format   XML or JSON.
-		 * @param [Int]    $no_json_callback Return json wrapped in a callback.
+		 * @param [Int]    $callback If specified, returns json wrapped in a callback with the name passed in.
 		 */
-		public function __construct( $api_key, $format = 'json', $no_json_callback = 1 ) {
+		public function __construct( $api_key, $format = 'json', $callback = null ) {
 			static::$api_key = $api_key;
 			static::$format  = $format;
-			static::$no_json_callback = $no_json_callback;
+			static::$callback = $callback;
 		}
 
 		/**
 		 * Fetch the request from the API.
 		 *
 		 * @param  [String] $request Request URL.
+		 * @param  [String] $args    Request args.
 		 * @return [type]          [description]
 		 */
 		private function fetch( $request ) {
 
-			if ( preg_match( '#\?#', $request ) ) {
-				$request .= '&apiKey=' . static::$api_key . '&rand=' . mt_rand( 1000000, 10000000 );
-			} else {
-				$request .= '?apiKey=' . static::$api_key . '&rand=' . mt_rand( 1000000, 10000000 );
+			$this->args['body']['api_key'] = static::$api_key;
+			$this->args['body']['format'] = static::$format;
+
+			if( null !== static::$callback ){
+				$this->args['body']['callback'] = static::$callback;
 			}
 
-			$request .= '&format=' . static::$format;
-			$request .= '&noJsonCallback=' . static::$no_json_callback;
-
-			$response = wp_remote_get( $request );
+			$response = wp_remote_post( $request, $this->args );
 			$code = wp_remote_retrieve_response_code( $response );
 
 			if ( 200 !== $code ) {
@@ -92,7 +98,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 
 			$body = wp_remote_retrieve_body( $response );
 
-			if ( 'json' === static::$format && static::$no_json_callback  ) {
+			if ( 'json' === static::$format && null === static::$callback  ) {
 				return json_decode( $body );
 			}
 
@@ -111,50 +117,104 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		/**
 		 * Get monitor info.
 		 *
-		 * @param  [String] $search                [description].
-		 * @param  [type]   $monitors              [description].
-		 * @param  [type]   $custom_up_ratio       [description].
-		 * @param  [Int]    $logs                  [description].
-		 * @param  [Int]    $response_times        [description].
-		 * @param  [Int]    $response_average [description].
-		 * @param  [Int]    $alert_contacts        [description].
-		 * @param  [Int]    $show_alert_contacts   [description].
-		 * @param  [Int]    $show_timezone         [description].
-		 * @return [type]                          [description]
+		 * @param  Array $args Array of arguments to send into get_monitors.
+		 * @return Array       Array of monitor info.
 		 */
-		public function get_monitors( $search = '', $monitors = null, $custom_up_ratio = null, $logs = 0, $response_times = 0, $response_average = 0, $alert_contacts = 0, $show_alert_contacts = 0, $show_timezone = 0 ) {
+		 public function get_monitors( $args = array() ) {
+			// Set route.
 			$request = $this->base_uri . '/getMonitors';
 
-			$request .= '?logs=' . $logs . '&responseTimes=' . $response_times . '&responseTimesAverage=' . $response_average . '&alertContacts=' . $alert_contacts . '&showMonitorAlertContacts=' . $show_alert_contacts . '&showTimezone=' . $show_timezone;
+			// Parse and set query args.
+			if ( isset( $args['monitors'] ) ) {
+				$this->args['body']['monitors'] = $this->get_implode( $args['monitors'] );
+			}
+			if( isset( $args['types'] ) ){
+				$this->args['body']['types'] = $this->get_implode( $args['types'] );
+			}
+			if( isset( $args['statuses'] ) ){
+				$this->args['body']['statuses'] = $this->get_implode( $args['statuses'] );
+			}
+			if ( isset( $args['custom_uptime_ratios'] ) ) {
+				$this->args['body']['custom_uptime_ratios'] = $this->get_implode( $args['custom_uptime_ratios'] );
+			}
+			if ( isset( $args['custom_uptime_ranges'] ) ) {
+				$this->args['body']['custom_uptime_ranges'] = $this->get_implode( $args['custom_uptime_ranges'] );
+			}
+			if ( isset( $args['all_time_uptime_ratio'] ) ) {
+				$this->args['body']['all_time_uptime_ratio'] = $args['all_time_uptime_ratio'];
+			}
+			if( isset( $args['all_time_uptime_durations'] ) ){
+				$this->args['body']['all_time_uptime_durations'] = $args['all_time_uptime_durations'];
+			}
+			if( isset( $args['logs'] ) ){
+				$this->args['body']['logs'] = $args['logs'];
+			}
+			if( isset( $args['logs_start_date'] ) ){
+				$this->args['body']['logs_start_date'] = $args['logs_start_date'];
+			}
+			if( isset( $args['logs_end_date'] ) ){
+				$this->args['body']['logs_end_date'] = $args['logs_end_date'];
+			}
+			if( isset( $args['logs_limit'] ) ){
+				$this->args['body']['logs_limit'] = $args['logs_limit'];
+			}
+			if( isset( $args['response_times'] ) ){
+				$this->args['body']['response_times'] = $args['response_times'];
+			}
+			if( isset( $args['response_times_limit'] ) ){
+				$this->args['body']['response_times_limit'] = $args['response_times_limit'];
+			}
+			if( isset( $args['response_times_average'] ) ){
+				$this->args['body']['response_times_average'] = $args['response_times_average'];
+			}
+			if( isset( $args['response_times_start_date'] ) ){
+				$this->args['body']['response_times_start_date'] = $args['response_times_start_date'];
+			}
+			if( isset( $args['response_times_end_date'] ) ){
+				$this->args['body']['response_times_end_date'] = $args['response_times_end_date'];
+			}
+			if( isset( $args['alert_contacts'] ) ){
+				$this->args['body']['alert_contacts'] = $args['alert_contacts'];
+			}
+			if( isset( $args['mwindows'] ) ){
+				$this->args['body']['mwindows'] = $args['mwindows'];
+			}
+			if( isset( $args['timezone'] ) ){
+				$this->args['body']['timezone'] = $args['timezone'];
+			}
+			if( isset( $args['offset'] ) ){
+				$this->args['body']['offset'] = $args['offset'];
+			}
+			if( isset( $args['limit'] ) ){
+				$this->args['body']['limit'] = $args['limit'];
+			}
+			if( isset( $args['search'] ) ){
+				$this->args['body']['search'] = htmlspecialchars( $args['search'] );
+			}
 
-			if ( ! empty( $search ) ) {
-				$request .= '&search=' . htmlspecialchars( $search );
-			}
-			if ( ! empty( $monitors ) ) {
-				$request .= '&monitors=' . $this->get_implode( $monitors );
-			}
-			if ( ! empty( $custom_up_ratio ) ) {
-				$request .= '&customUptimeRatio=' . $this->get_implode( $custom_up_ratio );
-			}
+			// Make API Call.
 			$result = $this->fetch( $request );
 
-			if ( isset( $result->limit ) && isset( $result->offset ) && isset( $result->total ) ) {
-				$limit = $result->limit;
-				$offset = $result->offset;
-				$total = $result->total;
+			// Loop until all monitors are retrieved.
+			if ( isset( $result->pagination->limit ) && isset( $result->pagination->offset ) && isset( $result->pagination->total ) ) {
+				$limit = $result->pagination->limit;
+				$offset = $result->pagination->offset;
+				$total = $result->pagination->total;
 
 				while ( ($limit * $offset) + $limit < $total ) {
-					$result->limit = ($limit * $offset) + $limit;
+					$result->pagination->limit = ($limit * $offset) + $limit;
 					$offset++;
-					$append = $this->fetch( $request . '&offset=' . ($offset * $limit) );
+					$this->args['body']['offset'] = ($offset * $limit);
+					$append = $this->fetch( $request );
 
 					if( 'fail' === $append->stat ){ break; }
 
-					$result->monitors->monitor = array_merge( $result->monitors->monitor, $append->monitors->monitor );
+					$result->monitors = array_merge( $result->monitors, $append->monitors );
 				}
-				$result->limit = ( $limit * $offset ) + $limit;
+				$result->pagination->limit = ( $limit * $offset ) + $limit;
 			}
 
+			// Return to sender.
 			return $result;
 		}
 
