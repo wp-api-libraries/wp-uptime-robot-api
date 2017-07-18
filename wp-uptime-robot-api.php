@@ -107,6 +107,9 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 
 		/**
 		 * [get_account_details description]
+		 *
+		 * @api
+		 *
 		 */
 		public function get_account_details() {
 			$request = $this->base_uri . '/getAccountDetails';
@@ -116,6 +119,8 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 
 		/**
 		 * Get monitor info.
+		 *
+		 * @api
 		 *
 		 * @param  Array $args Array of arguments to send into get_monitors.
 		 * @return Array       Array of monitor info.
@@ -221,6 +226,8 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		/**
 		 * Create a new Monitor.
 		 *
+		 * @api
+		 *
 		 * @param  [String] $friendly_name  Required | Display name.
 		 * @param  [String] $url            Required | Domain to be monitored.
 		 * @param  [String] $type           Required | Monitor type.
@@ -273,6 +280,8 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 
 		/**
 		 * [edit_monitor description]
+		 *
+		 * @api
 		 *
 		 * @param  [type] $monitor_id     [description].
 		 * @param  [type] $monitor_status [description].
@@ -332,30 +341,41 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		/**
 		 * Delete a monitor.
 		 *
-		 * @param  [Int] $monitor_id  ID of monitor.
-		 * @return [type]             [description]
+		 * @api
+		 *
+		 * @param  Int   $monitor_id  ID of monitor.
+		 * @return Array              Request results.
 		 */
 		public function delete_monitor( $monitor_id ) {
 			if ( empty( $monitor_id ) ) {
 				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'text-domain' ) );
 			}
 
-			$request = $this->base_uri . '/deleteMonitor?monitorID=' . $monitor_id;
+			$this->args['body']['id'] = $monitor_id;
+			$request = $this->base_uri . '/deleteMonitor';
 
 			return $this->fetch( $request );
 		}
 
 		/**
-		 * [get_alert_contacts description]
+		 * The list of alert contacts can be called with this method.
 		 *
-		 * @param  [type] $alert_contacts [description].
-		 * @return [type]                 [description]
+		 * @api
+		 *
+		 * @param  Array $args Arguments for getAlertContacts request.
+		 * @return Array       Request results.
 		 */
-		public function get_alert_contacts( $alert_contacts = null ) {
+		public function get_alert_contacts( $args = array() ) {
 			$request = $this->base_uri . '/getAlertContacts';
 
-			if ( ! empty( $alert_contacts ) ) {
-				$request .= '?alertcontacts=' . $this->get_implode( $alert_contacts );
+			if ( isset( $args['alert_contacts'] ) ) {
+				$this->args['body']['alert_contacts'] = $this->get_implode( $args['alert_contacts'] );
+			}
+			if ( isset( $args['offset'] ) ) {
+				$this->args['body']['offset'] =  $args['offset'];
+			}
+			if ( isset( $args['limit'] ) ) {
+				$this->args['body']['limit'] = $args['limit'];
 			}
 
 			return $this->fetch( $request );
@@ -377,6 +397,8 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 
 		/**
 		 * HTTP response code messages.
+		 *
+		 * @api
 		 *
 		 * @param  [String] $code : Response code to get message from.
 		 * @return [String]       : Message corresponding to response code sent in.
