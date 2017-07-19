@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
-    <title>Hostops</title>
+    <title>WP Uptime Robot API</title>
     <parser>
         <target>docs</target>
         <encoding>utf8</encoding>
@@ -14,7 +14,7 @@
         <target>docs</target>
     </transformer>
     <transformations>
-        <template name="responsive-twig" />
+        <template name="responsive" />
     </transformations>
     <files>
 				<directory>.</directory>
