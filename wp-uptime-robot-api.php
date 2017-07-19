@@ -13,6 +13,7 @@
 * Description: Perform API requests to Uptime Robot in WordPress.
 * Author: WP API Libraries
 * Version: 1.0.0
+* Text Domain: wp-uptime-robot-api
 * Author URI: https://wp-api-libraries.com
 * GitHub Plugin URI: https://github.com/wp-api-libraries/wp-uptime-robot-api
 * GitHub Branch: master
@@ -94,7 +95,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 			$code = wp_remote_retrieve_response_code( $response );
 
 			if ( 200 !== $code ) {
-				return new WP_Error( 'response-error', sprintf( __( 'Server response code: %d', 'text-domain' ), $code ) );
+				return new WP_Error( 'response-error', sprintf( __( 'Server response code: %d', 'wp-uptime-robot-api' ), $code ) );
 			}
 
 			$body = wp_remote_retrieve_body( $response );
@@ -237,7 +238,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		public function new_monitor( $args ) {
 
 			if ( ! isset( $args['friendly_name'] ) || ! isset( $args['url'] ) || ! isset( $args['type'] ) ) {
-				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'text-domain' ) );
+				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'wp-uptime-robot-api' ) );
 			}
 
 			$request = $this->base_uri . '/newMonitor';
@@ -294,7 +295,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		public function edit_monitor( $args ) {
 
 			if ( ! isset( $args['id'] ) ) {
-				return new WP_Error( 'required-fields', __( 'Monitor id required', 'text-domain' ) );
+				return new WP_Error( 'required-fields', __( 'Monitor id required', 'wp-uptime-robot-api' ) );
 			}
 
 			$request = $this->base_uri . '/editMonitor';
@@ -350,7 +351,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 */
 		public function delete_monitor( $monitor_id ) {
 			if ( empty( $monitor_id ) ) {
-				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'text-domain' ) );
+				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'wp-uptime-robot-api' ) );
 			}
 
 			$this->args['body']['id'] = $monitor_id;
@@ -383,6 +384,84 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 			return $this->fetch( $request );
 		}
 
+
+		/**
+		 * Converts the status ID to the corresponding status string.
+		 *
+		 * @param  int    $status Status ID to convert.
+		 * @return string         Status in string format ( Up|Down|Seems Down|Paused|Not Checked Yet|Not a Valid Status )
+		 */
+		public function status_tostring( Int $status ){
+			switch ( $status ) {
+				case 0:
+					$str_status = __( 'Paused','wp-uptime-robot-api' );
+					break;
+				case 1:
+					$str_status = __( 'Not Checked Yet','wp-uptime-robot-api' );
+					break;
+				case 2:
+					$str_status = __( 'Up','wp-uptime-robot-api' );
+					break;
+				case 8:
+					$str_status = __( 'Seems Down','wp-uptime-robot-api' );
+					break;
+				case 9:
+					$str_status = __( 'Down','wp-uptime-robot-api' );
+					break;
+				default:
+					$str_status = __( 'Not a Valid Status', 'wp-uptime-robot-api' );
+					break;
+			}
+
+			return $str_status;
+		}
+
+		/**
+		 * Converts the alert type ID to its corresponding messages.
+		 *
+		 * @param  Int    $type Alert type ID.
+		 * @return String       Alert type String (SMS|E-mail|Twitter DM|Boxcar|Web-Hook|Pushbullet|Zapier|Pushover|HipChat|Slack).
+		 */
+		public function alert_type_tostring( Int $type ){
+			switch ( $status ) {
+				case 1:
+					$str_type = __( 'SMS','wp-uptime-robot-api' );
+					break;
+				case 2:
+					$str_type = __( 'E-mail','wp-uptime-robot-api' );
+					break;
+				case 3:
+					$str_type = __( 'Twitter DM','wp-uptime-robot-api' );
+					break;
+				case 4:
+					$str_type = __( 'Boxcar','wp-uptime-robot-api' );
+					break;
+				case 5:
+					$str_type = __( 'Web-Hook','wp-uptime-robot-api' );
+					break;
+				case 6:
+					$str_type = __( 'Pushbullet','wp-uptime-robot-api' );
+					break;
+				case 7:
+					$str_type = __( 'Zapier','wp-uptime-robot-api' );
+					break;
+				case 9:
+					$str_type = __( 'Pushover','wp-uptime-robot-api' );
+					break;
+				case 10:
+					$str_type = __( 'HipChat','wp-uptime-robot-api' );
+					break;
+				case 11:
+					$str_type = __( 'Slack','wp-uptime-robot-api' );
+					break;
+				default:
+					$str_type = __( 'Not a Valid Alert Type', 'wp-uptime-robot-api' );
+					break;
+			}
+
+			return $str_type;
+		}
+
 		/**
 		 * HTTP response code messages.
 		 *
@@ -394,112 +473,112 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		public function response_code_msg( $code = '' ) {
 			switch ( $code ) {
 				case 100:
-					$msg = __( 'ApiKey not mentioned or in a wrong format.','text-domain' );
+					$msg = __( 'ApiKey not mentioned or in a wrong format.','wp-uptime-robot-api' );
 					break;
 				case 101:
-					$msg = __( 'ApiKey is wrong.','text-domain' );
+					$msg = __( 'ApiKey is wrong.','wp-uptime-robot-api' );
 					break;
 				case 102:
-					$msg = __( 'Format is wrong (should be xml or json).','text-domain' );
+					$msg = __( 'Format is wrong (should be xml or json).','wp-uptime-robot-api' );
 					break;
 				case 103:
-					$msg = __( 'No such method exists.','text-domain' );
+					$msg = __( 'No such method exists.','wp-uptime-robot-api' );
 					break;
 				case 200:
-					$msg = __( 'MonitorID(s) should be integers.','text-domain' );
+					$msg = __( 'MonitorID(s) should be integers.','wp-uptime-robot-api' );
 					break;
 				case 201:
-					$msg = __( 'MonitorUrl is invalid.','text-domain' );
+					$msg = __( 'MonitorUrl is invalid.','wp-uptime-robot-api' );
 					break;
 				case 202:
-					$msg = __( 'MonitorType is invalid.','text-domain' );
+					$msg = __( 'MonitorType is invalid.','wp-uptime-robot-api' );
 					break;
 				case 203:
-					$msg = __( 'MonitorSubType is invalid.','text-domain' );
+					$msg = __( 'MonitorSubType is invalid.','wp-uptime-robot-api' );
 					break;
 				case 204:
-					$msg = __( 'MonitorKeywordType is invalid.','text-domain' );
+					$msg = __( 'MonitorKeywordType is invalid.','wp-uptime-robot-api' );
 					break;
 				case 205:
-					$msg = __( 'MonitorPort is invalid.','text-domain' );
+					$msg = __( 'MonitorPort is invalid.','wp-uptime-robot-api' );
 					break;
 				case 206:
-					$msg = __( 'MonitorFriendlyName is required.','text-domain' );
+					$msg = __( 'MonitorFriendlyName is required.','wp-uptime-robot-api' );
 					break;
 				case 207:
-					$msg = __( 'The monitor already exists.','text-domain' );
+					$msg = __( 'The monitor already exists.','wp-uptime-robot-api' );
 					break;
 				case 208:
-					$msg = __( 'MonitorSubType is required for this type of monitors.','text-domain' );
+					$msg = __( 'MonitorSubType is required for this type of monitors.','wp-uptime-robot-api' );
 					break;
 				case 209:
-					$msg = __( 'The monitorKeyWordType and monitorKeyWordValue are required for this type of monitor.','text-domain' );
+					$msg = __( 'The monitorKeyWordType and monitorKeyWordValue are required for this type of monitor.','wp-uptime-robot-api' );
 					break;
 				case 210:
-					$msg = __( 'The monitorID does not exist.','text-domain' );
+					$msg = __( 'The monitorID does not exist.','wp-uptime-robot-api' );
 					break;
 				case 211:
-					$msg = __( 'The monitorID is required.','text-domain' );
+					$msg = __( 'The monitorID is required.','wp-uptime-robot-api' );
 					break;
 				case 212:
-					$msg = __( 'The account has no monitors.','text-domain' );
+					$msg = __( 'The account has no monitors.','wp-uptime-robot-api' );
 					break;
 				case 213:
-					$msg = __( 'At least one of the parameters to be edited are required.','text-domain' );
+					$msg = __( 'At least one of the parameters to be edited are required.','wp-uptime-robot-api' );
 					break;
 				case 214:
-					$msg = __( 'The monitorHTTPUsername and monitorHTTPPassword should both be empty or have values.','text-domain' );
+					$msg = __( 'The monitorHTTPUsername and monitorHTTPPassword should both be empty or have values.','wp-uptime-robot-api' );
 					break;
 				case 215:
-					$msg = __( 'The monitor specific apiKeys can only use getMonitors method.','text-domain' );
+					$msg = __( 'The monitor specific apiKeys can only use getMonitors method.','wp-uptime-robot-api' );
 					break;
 				case 216:
-					$msg = __( 'A user with this e-mail already exists.','text-domain' );
+					$msg = __( 'A user with this e-mail already exists.','wp-uptime-robot-api' );
 					break;
 				case 217:
-					$msg = __( 'The userFirstLastName and userEmail are both required.','text-domain' );
+					$msg = __( 'The userFirstLastName and userEmail are both required.','wp-uptime-robot-api' );
 					break;
 				case 218:
-					$msg = __( 'The userEmail is not in the right e-mail format.','text-domain' );
+					$msg = __( 'The userEmail is not in the right e-mail format.','wp-uptime-robot-api' );
 					break;
 				case 219:
-					$msg = __( 'This account is not authorized to create users.','text-domain' );
+					$msg = __( 'This account is not authorized to create users.','wp-uptime-robot-api' );
 					break;
 				case 220:
-					$msg = __( 'The monitorAlertContacts value is wrong.','text-domain' );
+					$msg = __( 'The monitorAlertContacts value is wrong.','wp-uptime-robot-api' );
 					break;
 				case 221:
-					$msg = __( 'The account has no alert contacts.','text-domain' );
+					$msg = __( 'The account has no alert contacts.','wp-uptime-robot-api' );
 					break;
 				case 222:
-					$msg = __( 'The alertcontactID(s) should be integers.','text-domain' );
+					$msg = __( 'The alertcontactID(s) should be integers.','wp-uptime-robot-api' );
 					break;
 				case 223:
-					$msg = __( 'The alertContactType and alertContactValue are both required.','text-domain' );
+					$msg = __( 'The alertContactType and alertContactValue are both required.','wp-uptime-robot-api' );
 					break;
 				case 224:
-					$msg = __( 'This alertContactType is not supported".','text-domain' );
+					$msg = __( 'This alertContactType is not supported".','wp-uptime-robot-api' );
 					break;
 				case 225:
-					$msg = __( 'The alert contact already exists.','text-domain' );
+					$msg = __( 'The alert contact already exists.','wp-uptime-robot-api' );
 					break;
 				case 226:
-					$msg = __( 'The alert contact is not following @uptimerobot Twitter user. It is required so that the Twitter direct messages (DM) can be sent.','text-domain' );
+					$msg = __( 'The alert contact is not following @uptimerobot Twitter user. It is required so that the Twitter direct messages (DM) can be sent.','wp-uptime-robot-api' );
 					break;
 				case 227:
-					$msg = __( 'The Boxcar user mentioned does not exist.','text-domain' );
+					$msg = __( 'The Boxcar user mentioned does not exist.','wp-uptime-robot-api' );
 					break;
 				case 228:
-					$msg = __( 'The Boxcar alert contact could not be added, please try again later.','text-domain' );
+					$msg = __( 'The Boxcar alert contact could not be added, please try again later.','wp-uptime-robot-api' );
 					break;
 				case 229:
-					$msg = __( 'The alertContactID does not exist.','text-domain' );
+					$msg = __( 'The alertContactID does not exist.','wp-uptime-robot-api' );
 					break;
 				case 230:
-					$msg = __( 'The alertContactValue should be a valid e-mail for this alertContactType.','text-domain' );
+					$msg = __( 'The alertContactValue should be a valid e-mail for this alertContactType.','wp-uptime-robot-api' );
 					break;
 				default:
-					$msg = __( 'Response code unknown.', 'text-domain' );
+					$msg = __( 'Response code unknown.', 'wp-uptime-robot-api' );
 					break;
 			}
 
