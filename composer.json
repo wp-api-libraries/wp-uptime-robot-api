@@ -1,11 +1,14 @@
 {
-    "require": {
-        "stevegrunwell/wp-enforcer": "^0.4.1"
-    },
-    "post-install-cmd": [
-    	"wp-enforcer"
-	],
-	"post-update-cmd": [
-    	"wp-enforcer"
-	]
+  "require": {
+    "stevegrunwell/wp-enforcer": "^0.4.1"
+  },
+  "post-install-cmd": [
+    "wp-enforcer"
+  ],
+  "post-update-cmd": [
+    "wp-enforcer"
+  ],
+  "require-dev": {
+    "phpdocumentor/phpdocumentor": "2.8.5"
+  }
 }
