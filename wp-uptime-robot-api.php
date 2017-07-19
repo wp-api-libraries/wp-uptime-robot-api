@@ -2,6 +2,7 @@
 /**
  * WP-UptimeRobot-API
  *
+ * @author Santiago Garza <github.com/sfgarza>
  * @link https://uptimerobot.com/api APIv2 Documentation.
  * @package WP-API-Libraries\WP-UptimeRobot-API
  */
@@ -64,9 +65,9 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		/**
 		 * Constructor.
 		 *
-		 * @param [String] $api_key  API key to the account.
-		 * @param [String] $format   XML or JSON.
-		 * @param [Int]    $callback If specified, returns json wrapped in a callback with the name passed in.
+		 * @param String $api_key  API key to the account.
+		 * @param String $format   XML or JSON.
+		 * @param Int    $callback If specified, returns json wrapped in a callback with the name passed in.
 		 */
 		public function __construct( $api_key, $format = 'json', $callback = null ) {
 			static::$api_key = $api_key;
@@ -77,8 +78,8 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		/**
 		 * Fetch the request from the API.
 		 *
-		 * @param  [String] $request Request URL.
-		 * @return [type]          [description]
+		 * @param  String $request Request URL.
+		 * @return Mixed           Request results.
 		 */
 		private function fetch( $request ) {
 
@@ -387,8 +388,8 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 *
 		 * @api
 		 *
-		 * @param  [String] $code : Response code to get message from.
-		 * @return [String]       : Message corresponding to response code sent in.
+		 * @param  String $code Response code to get message from.
+		 * @return String       Message corresponding to response code sent in.
 		 */
 		public function response_code_msg( $code = '' ) {
 			switch ( $code ) {
