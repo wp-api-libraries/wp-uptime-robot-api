@@ -37,7 +37,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		/**
 		 * Return format. XML or JSON.
 		 *
-		 * @var [string
+		 * @var string
 		 */
 		static private $format;
 
@@ -58,16 +58,16 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		/**
 		 * Request POST args.
 		 *
-		 * @var Array
+		 * @var array
 		 */
 		private $args = array();
 
 		/**
 		 * Constructor.
 		 *
-		 * @param String $api_key  API key to the account.
-		 * @param String $format   XML or JSON.
-		 * @param Int    $callback If specified, returns json wrapped in a callback with the name passed in.
+		 * @param string $api_key  API key to the account.
+		 * @param string $format   XML or JSON.
+		 * @param int    $callback If specified, returns json wrapped in a callback with the name passed in.
 		 */
 		public function __construct( $api_key, $format = 'json', $callback = null ) {
 			static::$api_key = $api_key;
@@ -78,8 +78,8 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		/**
 		 * Fetch the request from the API.
 		 *
-		 * @param  String $request Request URL.
-		 * @return Mixed           Request results.
+		 * @param  string $request Request URL.
+		 * @return mixed           Request results.
 		 */
 		private function fetch( $request ) {
 
@@ -112,7 +112,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 *
 		 * @api
 		 *
-		 * @return Array Request results.
+		 * @return array Request results.
 		 */
 		public function get_account_details() {
 			$request = $this->base_uri . '/getAccountDetails';
@@ -125,8 +125,8 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 *
 		 * @api
 		 *
-		 * @param  Array $args Array of arguments to send into get_monitors.
-		 * @return Array       Array of monitor info.
+		 * @param  array $args Array of arguments to send into get_monitors.
+		 * @return array       Array of monitor info.
 		 */
 		public function get_monitors( $args = array() ) {
 			// Set route.
@@ -231,8 +231,8 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 *
 		 * @api
 		 *
-		 * @param  Array $args Args to be sent into newMonitor request.
-		 * @return Array       Request results.
+		 * @param  array $args Args to be sent into newMonitor request.
+		 * @return array       Request results.
 		 */
 		public function new_monitor( $args ) {
 
@@ -288,8 +288,8 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 *
 		 * @api
 		 *
-		 * @param  Array $args Array of arguments to send into get_monitors.
-		 * @return Array       Array of monitor info.
+		 * @param  array $args Array of arguments to send into get_monitors.
+		 * @return array       Array of monitor info.
 		 */
 		public function edit_monitor( $args ) {
 
@@ -345,8 +345,8 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 *
 		 * @api
 		 *
-		 * @param  Int $monitor_id  ID of monitor.
-		 * @return Array              Request results.
+		 * @param  int $monitor_id  ID of monitor.
+		 * @return array              Request results.
 		 */
 		public function delete_monitor( $monitor_id ) {
 			if ( empty( $monitor_id ) ) {
@@ -364,8 +364,8 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 *
 		 * @api
 		 *
-		 * @param  Array $args Arguments for getAlertContacts request.
-		 * @return Array       Request results.
+		 * @param  array $args Arguments for getAlertContacts request.
+		 * @return array       Request results.
 		 */
 		public function get_alert_contacts( $args = array() ) {
 			$request = $this->base_uri . '/getAlertContacts';
@@ -388,8 +388,8 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 *
 		 * @api
 		 *
-		 * @param  String $code Response code to get message from.
-		 * @return String       Message corresponding to response code sent in.
+		 * @param  string $code Response code to get message from.
+		 * @return string       Message corresponding to response code sent in.
 		 */
 		public function response_code_msg( $code = '' ) {
 			switch ( $code ) {
@@ -510,8 +510,8 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 * Implode the array and deliminate the values with '-' or return the variable
 		 * as is.
 		 *
-		 * @param  [Array|String] $var Array to be imploded or a string to be sent back.
-		 * @return [String]            Imploded string.
+		 * @param  array|string $var Array to be imploded or a string to be sent back.
+		 * @return string            Imploded string.
 		 */
 		private function get_implode( $var ) {
 			if ( is_array( $var ) ) {

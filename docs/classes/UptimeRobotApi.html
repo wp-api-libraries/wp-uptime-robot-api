@@ -117,25 +117,25 @@ as is.</span><pre>get_implode()</pre></a></li>
 <i title="Methods" class="icon-custom icon-method"></i> Methods</h3>
 <a id="method___construct"></a><div class="element clickable method public method___construct " data-toggle="collapse" data-target=".method___construct .collapse" title="public">
 <h2>Constructor.</h2>
-<pre>__construct(String $api_key, String $format<code> = 'json'</code>, Int $callback<code> = null</code>) </pre>
+<pre>__construct(string $api_key, string $format<code> = 'json'</code>, integer $callback<code> = null</code>) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$api_key</h4>
-<code>String</code><p>API key to the account.</p></div>
+<code>string</code><p>API key to the account.</p></div>
 <div class="subelement argument">
 <h4>$format</h4>
-<code>String</code><p>XML or JSON.</p></div>
+<code>string</code><p>XML or JSON.</p></div>
 <div class="subelement argument">
 <h4>$callback</h4>
-<code>Int</code><p>If specified, returns json wrapped in a callback with the name passed in.</p></div>
+<code>integer</code><p>If specified, returns json wrapped in a callback with the name passed in.</p></div>
 </div></div>
 </div>
 <a id="method_delete_monitor"></a><div class="element clickable method public method_delete_monitor " data-toggle="collapse" data-target=".method_delete_monitor .collapse" title="public">
 <h2>Monitors can be deleted using this method.</h2>
-<pre>delete_monitor(Int $monitor_id) : Array</pre>
+<pre>delete_monitor(integer $monitor_id) : array</pre>
 <div class="labels"><span class="label label-info">API</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -146,15 +146,15 @@ as is.</span><pre>get_implode()</pre></a></li>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$monitor_id</h4>
-<code>Int</code><p>ID of monitor.</p></div>
+<code>integer</code><p>ID of monitor.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>Array</code>Request results.</div>
+<code>array</code>Request results.</div>
 </div></div>
 </div>
 <a id="method_edit_monitor"></a><div class="element clickable method public method_edit_monitor " data-toggle="collapse" data-target=".method_edit_monitor .collapse" title="public">
 <h2>Monitors can be edited using this method.</h2>
-<pre>edit_monitor(Array $args) : Array</pre>
+<pre>edit_monitor(array $args) : array</pre>
 <div class="labels"><span class="label label-info">API</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"><p>Important:
@@ -167,16 +167,16 @@ cases, deleting the monitor and re-creating a new one is adviced.</p></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$args</h4>
-<code>Array</code><p>Array of arguments to send into get_monitors.</p></div>
+<code>array</code><p>Array of arguments to send into get_monitors.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>Array</code>Array of monitor info.</div>
+<code>array</code>Array of monitor info.</div>
 </div></div>
 </div>
 <a id="method_get_account_details"></a><div class="element clickable method public method_get_account_details " data-toggle="collapse" data-target=".method_get_account_details .collapse" title="public">
 <h2>Account details (max number of monitors that can be added and number of up/down/paused monitors) can be grabbed
 using this method.</h2>
-<pre>get_account_details() : Array</pre>
+<pre>get_account_details() : array</pre>
 <div class="labels"><span class="label label-info">API</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -186,12 +186,12 @@ using this method.</h2>
 </tr></table>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>Array</code>Request results.</div>
+<code>array</code>Request results.</div>
 </div></div>
 </div>
 <a id="method_get_alert_contacts"></a><div class="element clickable method public method_get_alert_contacts " data-toggle="collapse" data-target=".method_get_alert_contacts .collapse" title="public">
 <h2>The list of alert contacts can be called with this method.</h2>
-<pre>get_alert_contacts(Array $args<code> = array()</code>) : Array</pre>
+<pre>get_alert_contacts(array $args<code> = array()</code>) : array</pre>
 <div class="labels"><span class="label label-info">API</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -202,15 +202,15 @@ using this method.</h2>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$args</h4>
-<code>Array</code><p>Arguments for getAlertContacts request.</p></div>
+<code>array</code><p>Arguments for getAlertContacts request.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>Array</code>Request results.</div>
+<code>array</code>Request results.</div>
 </div></div>
 </div>
 <a id="method_get_monitors"></a><div class="element clickable method public method_get_monitors " data-toggle="collapse" data-target=".method_get_monitors .collapse" title="public">
 <h2>Get monitor info.</h2>
-<pre>get_monitors(Array $args<code> = array()</code>) : Array</pre>
+<pre>get_monitors(array $args<code> = array()</code>) : array</pre>
 <div class="labels"><span class="label label-info">API</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -221,15 +221,15 @@ using this method.</h2>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$args</h4>
-<code>Array</code><p>Array of arguments to send into get_monitors.</p></div>
+<code>array</code><p>Array of arguments to send into get_monitors.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>Array</code>Array of monitor info.</div>
+<code>array</code>Array of monitor info.</div>
 </div></div>
 </div>
 <a id="method_new_monitor"></a><div class="element clickable method public method_new_monitor " data-toggle="collapse" data-target=".method_new_monitor .collapse" title="public">
 <h2>New monitors of any type can be created using this method.</h2>
-<pre>new_monitor(Array $args) : Array</pre>
+<pre>new_monitor(array $args) : array</pre>
 <div class="labels"><span class="label label-info">API</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -240,15 +240,15 @@ using this method.</h2>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$args</h4>
-<code>Array</code><p>Args to be sent into newMonitor request.</p></div>
+<code>array</code><p>Args to be sent into newMonitor request.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>Array</code>Request results.</div>
+<code>array</code>Request results.</div>
 </div></div>
 </div>
 <a id="method_response_code_msg"></a><div class="element clickable method public method_response_code_msg " data-toggle="collapse" data-target=".method_response_code_msg .collapse" title="public">
 <h2>HTTP response code messages.</h2>
-<pre>response_code_msg(String $code<code> = ''</code>) : String</pre>
+<pre>response_code_msg(string $code<code> = ''</code>) : string</pre>
 <div class="labels"><span class="label label-info">API</span></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
@@ -259,41 +259,41 @@ using this method.</h2>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$code</h4>
-<code>String</code><p>Response code to get message from.</p></div>
+<code>string</code><p>Response code to get message from.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>String</code>Message corresponding to response code sent in.</div>
+<code>string</code>Message corresponding to response code sent in.</div>
 </div></div>
 </div>
 <a id="method_fetch"></a><div class="element clickable method private method_fetch " data-toggle="collapse" data-target=".method_fetch .collapse" title="private">
 <h2>Fetch the request from the API.</h2>
-<pre>fetch(String $request) : Mixed</pre>
+<pre>fetch(string $request) : mixed</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$request</h4>
-<code>String</code><p>Request URL.</p></div>
+<code>string</code><p>Request URL.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>Mixed</code>Request results.</div>
+<code>mixed</code>Request results.</div>
 </div></div>
 </div>
 <a id="method_get_implode"></a><div class="element clickable method private method_get_implode " data-toggle="collapse" data-target=".method_get_implode .collapse" title="private">
 <h2>Implode the array and deliminate the values with '-' or return the variable
 as is.</h2>
-<pre>get_implode(\[Array|\String] $var) : \[String]</pre>
+<pre>get_implode(array|string $var) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <div class="long_description"></div>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$var</h4>
-<code>\[Array</code><code>\String]</code><p>Array to be imploded or a string to be sent back.</p></div>
+<code>array</code><code>string</code><p>Array to be imploded or a string to be sent back.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
-<code>\[String]</code>Imploded string.</div>
+<code>string</code>Imploded string.</div>
 </div></div>
 </div>
 <h3>
@@ -310,7 +310,7 @@ as is.</h2>
 </div>
 <a id="property_args"> </a><div class="element clickable property private property_args" data-toggle="collapse" data-target=".property_args .collapse" title="private">
 <h2>Request POST args.</h2>
-<pre>$args : Array</pre>
+<pre>$args : array</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"><code>array()</code></div>
@@ -340,7 +340,7 @@ as is.</h2>
 </div>
 <a id="property_format"> </a><div class="element clickable property private property_format" data-toggle="collapse" data-target=".property_format .collapse" title="private">
 <h2>Return format. XML or JSON.</h2>
-<pre>$format : \[string</pre>
+<pre>$format : string</pre>
 <div class="row collapse"><div class="detail-description">
 <h3>Default</h3>
 <div class="subelement argument"></div>
@@ -355,7 +355,7 @@ as is.</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2017-07-18T17:46:15-07:00.<br></footer></div>
+            generated on 2017-07-19T10:52:13-07:00.<br></footer></div>
 </div>
 </body>
 </html>
