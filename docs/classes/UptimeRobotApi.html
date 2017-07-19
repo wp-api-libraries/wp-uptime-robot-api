@@ -62,6 +62,7 @@
 <i title="Methods" class="icon-custom icon-method"></i> Methods
                     <ul>
 <li class="method public "><a href="#method___construct" title="__construct() :: Constructor."><span class="description">Constructor.</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_alert_type_tostring" title="alert_type_tostring() :: Converts the alert type ID to its corresponding messages."><span class="description">Converts the alert type ID to its corresponding messages.</span><pre>alert_type_tostring()</pre></a></li>
 <li class="method public "><a href="#method_delete_monitor" title="delete_monitor() :: Monitors can be deleted using this method."><span class="description">Monitors can be deleted using this method.</span><pre>delete_monitor()</pre></a></li>
 <li class="method public "><a href="#method_edit_monitor" title="edit_monitor() :: Monitors can be edited using this method."><span class="description">Monitors can be edited using this method.</span><pre>edit_monitor()</pre></a></li>
 <li class="method public "><a href="#method_get_account_details" title="get_account_details() :: Account details (max number of monitors that can be added and number of up/down/paused monitors) can be grabbed
@@ -71,6 +72,7 @@ using this method.</span><pre>get_account_details()</pre></a></li>
 <li class="method public "><a href="#method_get_monitors" title="get_monitors() :: Get monitor info."><span class="description">Get monitor info.</span><pre>get_monitors()</pre></a></li>
 <li class="method public "><a href="#method_new_monitor" title="new_monitor() :: New monitors of any type can be created using this method."><span class="description">New monitors of any type can be created using this method.</span><pre>new_monitor()</pre></a></li>
 <li class="method public "><a href="#method_response_code_msg" title="response_code_msg() :: HTTP response code messages."><span class="description">HTTP response code messages.</span><pre>response_code_msg()</pre></a></li>
+<li class="method public "><a href="#method_status_tostring" title="status_tostring() :: Converts the status ID to the corresponding status string."><span class="description">Converts the status ID to the corresponding status string.</span><pre>status_tostring()</pre></a></li>
 </ul>
 </li>
 <li class="nav-header private">» Private
@@ -131,6 +133,21 @@ as is.</span><pre>get_implode()</pre></a></li>
 <div class="subelement argument">
 <h4>$callback</h4>
 <code>integer</code><p>If specified, returns json wrapped in a callback with the name passed in.</p></div>
+</div></div>
+</div>
+<a id="method_alert_type_tostring"></a><div class="element clickable method public method_alert_type_tostring " data-toggle="collapse" data-target=".method_alert_type_tostring .collapse" title="public">
+<h2>Converts the alert type ID to its corresponding messages.</h2>
+<pre>alert_type_tostring(Int $type) : String</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$type</h4>
+<code>Int</code><p>Alert type ID.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>String</code>Alert type String (SMS|E-mail|Twitter DM|Boxcar|Web-Hook|Pushbullet|Zapier|Pushover|HipChat|Slack).</div>
 </div></div>
 </div>
 <a id="method_delete_monitor"></a><div class="element clickable method public method_delete_monitor " data-toggle="collapse" data-target=".method_delete_monitor .collapse" title="public">
@@ -265,6 +282,21 @@ using this method.</h2>
 <code>string</code>Message corresponding to response code sent in.</div>
 </div></div>
 </div>
+<a id="method_status_tostring"></a><div class="element clickable method public method_status_tostring " data-toggle="collapse" data-target=".method_status_tostring .collapse" title="public">
+<h2>Converts the status ID to the corresponding status string.</h2>
+<pre>status_tostring(integer $status) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$status</h4>
+<code>integer</code><p>Status ID to convert.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>Status in string format ( Up|Down|Seems Down|Paused|Not Checked Yet|Not a Valid Status )</div>
+</div></div>
+</div>
 <a id="method_fetch"></a><div class="element clickable method private method_fetch " data-toggle="collapse" data-target=".method_fetch .collapse" title="private">
 <h2>Fetch the request from the API.</h2>
 <pre>fetch(string $request) : mixed</pre>
@@ -355,7 +387,7 @@ as is.</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2017-07-19T10:52:13-07:00.<br></footer></div>
+            generated on 2017-07-19T12:28:27-07:00.<br></footer></div>
 </div>
 </body>
 </html>
