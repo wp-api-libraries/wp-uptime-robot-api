@@ -235,7 +235,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 */
 		public function new_monitor( $args ) {
 
-			if ( !isset( $args['friendly_name'] ) || !isset( $args['url'] ) || !isset( $args['type'] ) ) {
+			if ( ! isset( $args['friendly_name'] ) || ! isset( $args['url'] ) || ! isset( $args['type'] ) ) {
 				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'text-domain' ) );
 			}
 
@@ -245,25 +245,25 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 			$this->args['body']['type'] = $args['type'];
 
 			if ( isset( $args['type'] ) ) {
-				$this->args['body']['type'] =  $args['type'];
+				$this->args['body']['type'] = $args['type'];
 			}
 			if ( isset( $args['sub_type'] ) ) {
 				$this->args['body']['sub_type'] = $args['sub_type'];
 			}
 			if ( isset( $args['port'] ) ) {
-				$this->args['body']['port'] =  $args['port'];
+				$this->args['body']['port'] = $args['port'];
 			}
 			if ( isset( $args['keyword_type'] ) ) {
 				$this->args['body']['keyword_type'] = $args['keyword_type'];
 			}
 			if ( isset( $args['keyword_value'] ) ) {
-				$this->args['body']['keyword_value'] =  $args['keyword_value'];
+				$this->args['body']['keyword_value'] = $args['keyword_value'];
 			}
 			if ( isset( $args['interval'] ) ) {
 				$this->args['body']['interval'] = $args['interval'];
 			}
 			if ( isset( $args['http_username'] ) ) {
-				$this->args['body']['http_username'] =  $args['http_username'];
+				$this->args['body']['http_username'] = $args['http_username'];
 			}
 			if ( isset( $args['http_password'] ) ) {
 				$this->args['body']['http_password'] = $args['http_password'];
@@ -292,7 +292,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 */
 		public function edit_monitor( $args ) {
 
-			if ( !isset( $args['id'] ) ) {
+			if ( ! isset( $args['id'] ) ) {
 				return new WP_Error( 'required-fields', __( 'Monitor id required', 'text-domain' ) );
 			}
 
@@ -309,13 +309,13 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 				$this->args['body']['sub_type'] = $args['sub_type'];
 			}
 			if ( isset( $args['port'] ) ) {
-				$this->args['body']['port'] =  $args['port'];
+				$this->args['body']['port'] = $args['port'];
 			}
 			if ( isset( $args['keyword_type'] ) ) {
 				$this->args['body']['keyword_type'] = $args['keyword_type'];
 			}
 			if ( isset( $args['keyword_value'] ) ) {
-				$this->args['body']['keyword_value'] =  $args['keyword_value'];
+				$this->args['body']['keyword_value'] = $args['keyword_value'];
 			}
 			if ( isset( $args['interval'] ) ) {
 				$this->args['body']['interval'] = $args['interval'];
@@ -324,7 +324,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 				$this->args['body']['status'] = $args['status'];
 			}
 			if ( isset( $args['http_username'] ) ) {
-				$this->args['body']['http_username'] =  $args['http_username'];
+				$this->args['body']['http_username'] = $args['http_username'];
 			}
 			if ( isset( $args['http_password'] ) ) {
 				$this->args['body']['http_password'] = $args['http_password'];
@@ -344,7 +344,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 *
 		 * @api
 		 *
-		 * @param  Int   $monitor_id  ID of monitor.
+		 * @param  Int $monitor_id  ID of monitor.
 		 * @return Array              Request results.
 		 */
 		public function delete_monitor( $monitor_id ) {
@@ -373,7 +373,7 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 				$this->args['body']['alert_contacts'] = $this->get_implode( $args['alert_contacts'] );
 			}
 			if ( isset( $args['offset'] ) ) {
-				$this->args['body']['offset'] =  $args['offset'];
+				$this->args['body']['offset'] = $args['offset'];
 			}
 			if ( isset( $args['limit'] ) ) {
 				$this->args['body']['limit'] = $args['limit'];
