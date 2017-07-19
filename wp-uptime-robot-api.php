@@ -106,10 +106,12 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		}
 
 		/**
-		 * [get_account_details description]
+		 * Account details (max number of monitors that can be added and number of up/down/paused monitors) can be grabbed
+		 * using this method.
 		 *
 		 * @api
 		 *
+		 * @return Array Request results.
 		 */
 		public function get_account_details() {
 			$request = $this->base_uri . '/getAccountDetails';
@@ -224,122 +226,121 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		}
 
 		/**
-		 * Create a new Monitor.
+		 * New monitors of any type can be created using this method.
 		 *
 		 * @api
 		 *
-		 * @param  [String] $friendly_name  Required | Display name.
-		 * @param  [String] $url            Required | Domain to be monitored.
-		 * @param  [String] $type           Required | Monitor type.
-		 * @param  [type]   $alert_contacts Optional | .
-		 * @param  [type]   $sub_type       Optional | .
-		 * @param  [type]   $port           Optional | .
-		 * @param  [type]   $keyword_type   Optional | .
-		 * @param  [type]   $keyword_value  Optional | .
-		 * @param  [type]   $username       Optional | .
-		 * @param  [type]   $password       Optional | .
-		 * @param  [int]    $interval       Optional | .
-		 * @return [type]                  [description] .
+		 * @param  Array $args Args to be sent into newMonitor request.
+		 * @return Array       Request results.
 		 */
-		public function new_monitor( $friendly_name, $url, $type, $alert_contacts = null, $sub_type = null, $port = null, $keyword_type = null, $keyword_value = null, $username = null, $password = null, $interval = 3 ) {
+		public function new_monitor( $args ) {
 
-			if ( empty( $friendly_name ) || empty( $url ) || empty( $type ) ) {
+			if ( !isset( $args['friendly_name'] ) || !isset( $args['url'] ) || !isset( $args['type'] ) ) {
 				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'text-domain' ) );
 			}
 
-			$friendly_name = urlencode( $friendly_name );
-			$request = $this->base_uri . '/newMonitor?monitorFriendlyName=' . $friendly_name . '&monitorURL=' . $url . '&monitorType=' . $type;
+			$request = $this->base_uri . '/newMonitor';
+			$this->args['body']['friendly_name'] = $args['friendly_name'];
+			$this->args['body']['url'] = $args['url'];
+			$this->args['body']['type'] = $args['type'];
 
-			if ( ! empty( $alert_contacts ) ) {
-				$request .= '&monitorAlertContacts=' . $this->get_implode( $alert_contacts );
+			if ( isset( $args['type'] ) ) {
+				$this->args['body']['type'] =  $args['type'];
 			}
-			if ( ! empty( $sub_type ) ) {
-				$request .= '&monitorSubType=' . $sub_type;
+			if ( isset( $args['sub_type'] ) ) {
+				$this->args['body']['sub_type'] = $args['sub_type'];
 			}
-			if ( ! empty( $port ) ) {
-				$request .= '&monitorPort=' . $port;
+			if ( isset( $args['port'] ) ) {
+				$this->args['body']['port'] =  $args['port'];
 			}
-			if ( isset( $keyword_type ) ) {
-				$request .= '&monitorKeywordType=' . $keyword_type;
+			if ( isset( $args['keyword_type'] ) ) {
+				$this->args['body']['keyword_type'] = $args['keyword_type'];
 			}
-			if ( isset( $keyword_value ) ) {
-				$request .= '&monitorKeywordValue=' . urlencode( $keyword_value );
+			if ( isset( $args['keyword_value'] ) ) {
+				$this->args['body']['keyword_value'] =  $args['keyword_value'];
 			}
-			if ( isset( $username ) ) {
-				$request .= '&monitorHTTPUsername=' . urlencode( $username );
+			if ( isset( $args['interval'] ) ) {
+				$this->args['body']['interval'] = $args['interval'];
 			}
-			if ( isset( $password ) ) {
-				$request .= '&monitorHTTPPassword=' . urlencode( $password );
+			if ( isset( $args['http_username'] ) ) {
+				$this->args['body']['http_username'] =  $args['http_username'];
 			}
-			if ( ! empty( $interval ) ) {
-				$request .= '&monitorInterval=' . $interval;
+			if ( isset( $args['http_password'] ) ) {
+				$this->args['body']['http_password'] = $args['http_password'];
+			}
+			if ( isset( $args['alert_contacts'] ) ) {
+				$this->args['body']['alert_contacts'] = $this->get_implode( $args['alert_contacts'] );
+			}
+			if ( isset( $args['mwindows'] ) ) {
+				$this->args['body']['mwindows'] = $this->get_implode( $args['mwindows'] );
 			}
 
 			return $this->fetch( $request );
 		}
 
 		/**
-		 * [edit_monitor description]
+		 * Monitors can be edited using this method.
+		 *
+		 * Important:
+		 * The type of a monitor can not be edited (like changing a HTTP monitor into a Port monitor). For such
+		 * cases, deleting the monitor and re-creating a new one is adviced.
 		 *
 		 * @api
 		 *
-		 * @param  [type] $monitor_id     [description].
-		 * @param  [type] $monitor_status [description].
-		 * @param  [type] $friendly_name  [description].
-		 * @param  [type] $url            [description].
-		 * @param  [type] $type           [description].
-		 * @param  [type] $alert_contacts [description].
-		 * @param  [type] $sub_type       [description].
-		 * @param  [type] $port           [description].
-		 * @param  [type] $keyword_type   [description].
-		 * @param  [type] $keyword_value  [description].
-		 * @param  [type] $username       [description].
-		 * @param  [type] $password       [description].
-		 * @return [type]                 [description]
+		 * @param  Array $args Array of arguments to send into get_monitors.
+		 * @return Array       Array of monitor info.
 		 */
-		public function edit_monitor( $monitor_id, $monitor_status = null, $friendly_name = null, $url = null, $type = null, $alert_contacts = null, $sub_type = null, $port = null, $keyword_type = null, $keyword_value = null, $username = null, $password = null ) {
+		public function edit_monitor( $args ) {
 
-			$request = $this->base_uri . '/editMonitor?monitorID=' . $monitor_id;
+			if ( !isset( $args['id'] ) ) {
+				return new WP_Error( 'required-fields', __( 'Monitor id required', 'text-domain' ) );
+			}
 
-			if ( isset( $monitor_status ) ) {
-				$request .= '&monitorStatus=' . $monitor_status;
+			$request = $this->base_uri . '/editMonitor';
+			$this->args['body']['id'] = $args['id'];
+
+			if ( isset( $args['friendly_name'] ) ) {
+				$this->args['body']['friendly_name'] = $args['friendly_name'];
 			}
-			if ( isset( $friendly_name ) ) {
-				$request .= '&monitorFriendlyName=' . urlencode( $friendly_name );
+			if ( isset( $args['url'] ) ) {
+				$this->args['body']['url'] = $args['url'];
 			}
-			if ( isset( $url ) ) {
-				$request .= '&monitorURL=' . $url;
+			if ( isset( $args['sub_type'] ) ) {
+				$this->args['body']['sub_type'] = $args['sub_type'];
 			}
-			if ( isset( $type ) ) {
-				$request .= '&monitorType=' . $type;
+			if ( isset( $args['port'] ) ) {
+				$this->args['body']['port'] =  $args['port'];
 			}
-			if ( isset( $sub_type ) ) {
-				$request .= '&monitorSubType=' . $sub_type;
+			if ( isset( $args['keyword_type'] ) ) {
+				$this->args['body']['keyword_type'] = $args['keyword_type'];
 			}
-			if ( isset( $port ) ) {
-				$request .= '&monitorPort=' . $port;
+			if ( isset( $args['keyword_value'] ) ) {
+				$this->args['body']['keyword_value'] =  $args['keyword_value'];
 			}
-			if ( isset( $keyword_type ) ) {
-				$request .= '&monitorKeywordType=' . $keyword_type;
+			if ( isset( $args['interval'] ) ) {
+				$this->args['body']['interval'] = $args['interval'];
 			}
-			if ( isset( $keyword_value ) ) {
-				$request .= '&monitorKeywordValue=' . urlencode( $keyword_value );
+			if ( isset( $args['status'] ) ) {
+				$this->args['body']['status'] = $args['status'];
 			}
-			if ( isset( $username ) ) {
-				$request .= '&monitorHTTPUsername=' . urlencode( $username );
+			if ( isset( $args['http_username'] ) ) {
+				$this->args['body']['http_username'] =  $args['http_username'];
 			}
-			if ( isset( $password ) ) {
-				$request .= '&monitorHTTPPassword=' . urlencode( $password );
+			if ( isset( $args['http_password'] ) ) {
+				$this->args['body']['http_password'] = $args['http_password'];
 			}
-			if ( ! empty( $alert_contacts ) ) {
-				$request .= '&monitorAlertContacts=' . $this->get_implode( $alert_contacts );
+			if ( isset( $args['alert_contacts'] ) ) {
+				$this->args['body']['alert_contacts'] = $this->get_implode( $args['alert_contacts'] );
+			}
+			if ( isset( $args['mwindows'] ) ) {
+				$this->args['body']['mwindows'] = $this->get_implode( $args['mwindows'] );
 			}
 
 			return $this->fetch( $request );
 		}
 
 		/**
-		 * Delete a monitor.
+		 * Monitors can be deleted using this method.
 		 *
 		 * @api
 		 *
@@ -379,20 +380,6 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 			}
 
 			return $this->fetch( $request );
-		}
-
-		/**
-		 * [new_alert_contact description]
-		 */
-		protected function new_alert_contact() {
-
-		}
-
-		/**
-		 * [delete_alert_contact description]
-		 */
-		protected function delete_alert_contact() {
-
 		}
 
 		/**
