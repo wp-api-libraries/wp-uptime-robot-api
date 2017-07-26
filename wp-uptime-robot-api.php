@@ -383,7 +383,349 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 
 			return $this->fetch( $request );
 		}
+		/**
+		 * New alert contacts of any type (mobile/SMS alert contacts are not supported
+		 * yet) can be created using this method.
+		 * The alert contacts created using the API are validated with the same way
+		 * as they were created from uptimerobot.com (activation link for e-mails, etc.).
+		 *
+		 * @api
+		 *
+		 * @param  array $args Arguments for newAlertContact request.
+		 * @return array       Request results.
+		 */
+		public function new_alert_contact( $args = array() ) {
 
+			if (! isset( $args['type']) || ! isset( $args['value'] )) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'wp-uptime-robot-api' ) );
+			}
+
+			$request = $this->base_uri . '/newAlertContact';
+			$this->args['body']['type'] = $args['type'];
+			$this->args['body']['value'] = $args['value'];
+
+			if ( isset( $args['type'] ) ) {
+				$this->args['body']['type'] = $args['type'];
+			}
+			if ( isset( $args['value'] ) ) {
+				$this->args['body']['value'] = $args['value'];
+			}
+			if ( isset( $args['friendly_name'] ) ) {
+				$this->args['body']['friendly_name'] = $args['friendly_name'];
+			}
+
+			return $this->fetch( $request );
+		}
+		/**
+		 * Alert contacts can be edited using this method.
+		 *
+		 * @api
+		 *
+		 * @param  array $args Arguments for editAlertContact request.
+		 * @return array       Request results.
+		 */
+		public function edit_alert_contacts( $args = array() ) {
+
+			if (! isset( $args['id']) ){
+				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'wp-uptime-robot-api' ) );
+			}
+
+			$request = $this->base_uri . '/editAlertContacts';
+			$this->args['body']['id'] = $args['id'];
+
+			if ( isset( $args['id'] ) ) {
+				$this->args['body']['id'] = $args['id'];
+			}
+
+			if ( isset( $args['friendly_name'] ) ) {
+				$this->args['body']['friendly_name'] = $args['friendly_name'];
+			}
+			if ( isset( $args['value'] ) ) {
+				$this->args['body']['value'] = $args['value'];
+			}
+
+			return $this->fetch( $request );
+		}
+
+		/**
+		 * Alert contacts can be deleted using this method.
+
+		 *
+		 * @api
+		 *
+		 * @param  array $args Arguments for deleteAlertContact request.
+		 * @return array       Request results.
+		 */
+		public function delete_alert_contact( $args = array() ) {
+
+			if (! isset( $args['id'])) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'wp-uptime-robot-api' ) );
+			}
+
+			$request = $this->base_uri . '/deleteAlertContact';
+			$this->args['body']['id'] = $args['id'];
+
+			if ( isset( $args['id'] ) ) {
+				$this->args['body']['id'] = $args['id'];
+			}
+
+			return $this->fetch( $request );
+		}
+
+		/**
+		 * The list of maintenance windows can be called with this method.
+		 *
+		 * @api
+		 *
+		 * @param  array $args Arguments for getMWindows request.
+		 * @return array       Request results.
+		 */
+		public function get_mwindows( $args = array() ) {
+			$request = $this->base_uri . '/getMWindows';
+			if ( isset( $args['mwindows'] ) ) {
+				$this->args['body']['mwindows'] = $this->get_implode( $args['mwindows'] );
+			}
+			if ( isset( $args['offset'] ) ) {
+				$this->args['body']['offset'] = $args['offset'];
+			}
+			if ( isset( $args['limit'] ) ) {
+				$this->args['body']['limit'] = $args['limit'];
+			}
+
+			return $this->fetch( $request );
+		}
+
+		/**
+		 * New maintenance windows can be created using this method.
+		 *
+		 * @api
+		 *
+		 * @param  array $args Arguments for newMWindows request.
+		 * @return array       Request results.
+		 */
+		public function new_mwindows( $args = array() ) {
+
+			if (! isset( $args['friendly_name']) || ! isset( $args['type'] )|| ! isset( $args['value'] )|| ! isset( $args['start_time'] )|| ! isset( $args['duration'] )) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'wp-uptime-robot-api' ) );
+			}
+
+			$request = $this->base_uri . '/newMWindows';
+			$this->args['body']['friendly_name'] = $args['friendly_name'];
+			$this->args['body']['type'] = $args['type'];
+			$this->args['body']['value'] = $args['value'];
+			$this->args['body']['start_time'] = $args['start_time'];
+			$this->args['body']['duration'] = $args['duration'];
+
+			if ( isset( $args['friendly_name'] ) ) {
+				$this->args['body']['friendly_name'] = $args['friendly_name'];
+			}
+			if ( isset( $args['type'] ) ) {
+				$this->args['body']['type'] = $args['type'];
+			}
+			if ( isset( $args['value'] ) ) {
+				$this->args['body']['value'] = $args['value'];
+			}
+			if ( isset( $args['start_time'] ) ) {
+				$this->args['body']['start_time'] = $args['start_time'];
+			}
+			if ( isset( $args['duration'] ) ) {
+				$this->args['body']['duration'] = $args['duration'];
+			}
+
+
+					return $this->fetch( $request );
+		}
+		/**
+		 * Maintenance windows can be edited using this method.
+		 *
+		 * @api
+		 *
+		 * @param  array $args Arguments for editMWindows request.
+		 * @return array       Request results.
+		 */
+		public function edit_mwindows( $args = array() ) {
+
+			if (! isset( $args['friendly_name']) || ! isset( $args['type'] )|| ! isset( $args['value'] )|| ! isset( $args['start_time'] )|| ! isset( $args['duration'] )) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'wp-uptime-robot-api' ) );
+			}
+
+			$request = $this->base_uri . '/editMWindows';
+			$this->args['body']['friendly_name'] = $args['friendly_name'];
+			$this->args['body']['type'] = $args['type'];
+			$this->args['body']['value'] = $args['value'];
+			$this->args['body']['start_time'] = $args['start_time'];
+			$this->args['body']['duration'] = $args['duration'];
+
+			if ( isset( $args['friendly_name'] ) ) {
+				$this->args['body']['friendly_name'] = $args['friendly_name'];
+			}
+			if ( isset( $args['type'] ) ) {
+				$this->args['body']['type'] = $args['type'];
+			}
+			if ( isset( $args['value'] ) ) {
+				$this->args['body']['value'] = $args['value'];
+			}
+			if ( isset( $args['start_time'] ) ) {
+				$this->args['body']['start_time'] = $args['start_time'];
+			}
+			if ( isset( $args['duration'] ) ) {
+				$this->args['body']['duration'] = $args['duration'];
+			}
+
+					return $this->fetch( $request );
+		}
+		/**
+		 * Maintenance windows can be deleted using this method.
+		 *
+		 * @api
+		 *
+		 * @param  array $args Arguments for deleteMWindow request.
+		 * @return array       Request results.
+		 */
+		public function delete_mwindow( $args = array() ) {
+
+			if (! isset( $args['id'])) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'wp-uptime-robot-api' ) );
+			}
+
+			$request = $this->base_uri . '/deleteMWindow';
+			$this->args['body']['id'] = $args['id'];
+
+			if ( isset( $args['id'] ) ) {
+				$this->args['body']['id'] = $args['id'];
+			}
+
+			return $this->fetch( $request );
+		}
+
+		/**
+		 * The list of alert contacts can be called with this method.
+		 *
+		 * @api
+		 *
+		 * @param  array $args Arguments for getPSPs request.
+		 * @return array       Request results.
+		 */
+		public function get_psps( $args = array() ) {
+			$request = $this->base_uri . '/getPSPs';
+
+			if ( isset( $args['psps'] ) ) {
+				$this->args['body']['psps'] = $this->get_implode( $args['psps'] );
+			}
+			if ( isset( $args['offset'] ) ) {
+				$this->args['body']['offset'] = $args['offset'];
+			}
+			if ( isset( $args['limit'] ) ) {
+				$this->args['body']['limit'] = $args['limit'];
+			}
+
+			return $this->fetch( $request );
+		}
+		/**
+		 * New public status pages can be created using this method.
+		 *
+		 * @api
+		 *
+		 * @param  array $args Arguments for newPSP request.
+		 * @return array       Request results.
+		 */
+		public function new_psp( $args = array() ) {
+
+			if (! isset( $args['type']) || ! isset( $args['friendly_name'] )|| ! isset( $args['monitors'] )) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'wp-uptime-robot-api' ) );
+			}
+
+			$request = $this->base_uri . '/newPSP';
+			$this->args['body']['type'] = $args['type'];
+			$this->args['body']['friendly_name'] = $args['friendly_name'];
+			$this->args['body']['monitors'] = $this->get_implode($args['monitors']);
+
+			if ( isset( $args['type'] ) ) {
+				$this->args['body']['type'] = $args['type'];
+			}
+			if ( isset( $args['friendly_name'] ) ) {
+				$this->args['body']['friendly_name'] = $args['friendly_name'];
+			}
+			if ( isset( $args['monitors'] ) ) {
+				$this->args['body']['monitors'] = $this->get_implode($args['monitors']);
+			}
+			if ( isset( $args['custom_domain'] ) ) {
+				$this->args['body']['custom_domain'] = $args['custom_domain'];
+			}
+			if ( isset( $args['sort'] ) ) {
+				$this->args['body']['sort'] = $args['sort'];
+			}
+			if ( isset( $args['hide_url_links'] ) ) {
+				$this->args['body']['hide_url_links'] = $args['hide_url_links'];
+			}
+			if ( isset( $args['status'] ) ) {
+				$this->args['body']['status'] = $args['status'];
+			}
+
+			return $this->fetch( $request );
+		}
+		/**
+		 * Public status pages can be edited using this method.
+		 *
+		 * @api
+		 *
+		 * @param  array $args Arguments for editPSP request.
+		 * @return array       Request results.
+		 */
+		public function edit_psp( $args = array() ) {
+
+			if (! isset( $args['type']) || ! isset( $args['friendly_name'] )|| ! isset( $args['monitors'] )) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'wp-uptime-robot-api' ) );
+			}
+
+			$request = $this->base_uri . '/editPSP';
+			$this->args['body']['type'] = $args['type'];
+			$this->args['body']['friendly_name'] = $args['friendly_name'];
+			$this->args['body']['monitors'] = $this->get_implode($args['monitors']);
+
+			if ( isset( $args['type'] ) ) {
+				$this->args['body']['type'] = $args['type'];
+			}
+			if ( isset( $args['friendly_name'] ) ) {
+				$this->args['body']['friendly_name'] = $args['friendly_name'];
+			}
+			if ( isset( $args['monitors'] ) ) {
+				$this->args['body']['monitors'] = $this->get_implode($args['monitors']);
+			}
+			if ( isset( $args['custom_domain'] ) ) {
+				$this->args['body']['custom_domain'] = $args['custom_domain'];
+			}
+			if ( isset( $args['sort'] ) ) {
+				$this->args['body']['sort'] = $args['sort'];
+			}
+			if ( isset( $args['hide_url_links'] ) ) {
+				$this->args['body']['hide_url_links'] = $args['hide_url_links'];
+			}
+			if ( isset( $args['status'] ) ) {
+				$this->args['body']['status'] = $args['status'];
+			}
+
+			return $this->fetch( $request );
+		}
+
+		/**
+		 * Alert contacts can be deleted using this method.
+		 *
+		 * @api
+		 *
+		 * @param  array $args Arguments for deletePSP request.
+		 * @return array       Request results.
+		 */
+		public function delete_psp( $args = array() ) {
+			if (! isset( $args['id'])) {
+				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'wp-uptime-robot-api' ) );
+			}
+
+			$request = $this->base_uri . '/delete_psp';
+			$this->args['body']['id'] = $args['id'];
+
+			return $this->fetch( $request );
+		}
 
 		/**
 		 * Converts the status ID to the corresponding status string.
