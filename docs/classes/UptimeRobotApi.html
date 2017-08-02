@@ -63,14 +63,27 @@
                     <ul>
 <li class="method public "><a href="#method___construct" title="__construct() :: Constructor."><span class="description">Constructor.</span><pre>__construct()</pre></a></li>
 <li class="method public "><a href="#method_alert_type_tostring" title="alert_type_tostring() :: Converts the alert type ID to its corresponding messages."><span class="description">Converts the alert type ID to its corresponding messages.</span><pre>alert_type_tostring()</pre></a></li>
+<li class="method public "><a href="#method_delete_alert_contact" title="delete_alert_contact() :: Alert contacts can be deleted using this method."><span class="description">Alert contacts can be deleted using this method.</span><pre>delete_alert_contact()</pre></a></li>
 <li class="method public "><a href="#method_delete_monitor" title="delete_monitor() :: Monitors can be deleted using this method."><span class="description">Monitors can be deleted using this method.</span><pre>delete_monitor()</pre></a></li>
+<li class="method public "><a href="#method_delete_mwindow" title="delete_mwindow() :: Maintenance windows can be deleted using this method."><span class="description">Maintenance windows can be deleted using this method.</span><pre>delete_mwindow()</pre></a></li>
+<li class="method public "><a href="#method_delete_psp" title="delete_psp() :: Alert contacts can be deleted using this method."><span class="description">Alert contacts can be deleted using this method.</span><pre>delete_psp()</pre></a></li>
+<li class="method public "><a href="#method_edit_alert_contact" title="edit_alert_contact() :: Alert contacts can be edited using this method."><span class="description">Alert contacts can be edited using this method.</span><pre>edit_alert_contact()</pre></a></li>
 <li class="method public "><a href="#method_edit_monitor" title="edit_monitor() :: Monitors can be edited using this method."><span class="description">Monitors can be edited using this method.</span><pre>edit_monitor()</pre></a></li>
+<li class="method public "><a href="#method_edit_mwindow" title="edit_mwindow() :: Maintenance windows can be edited using this method."><span class="description">Maintenance windows can be edited using this method.</span><pre>edit_mwindow()</pre></a></li>
+<li class="method public "><a href="#method_edit_psp" title="edit_psp() :: Public status pages can be edited using this method."><span class="description">Public status pages can be edited using this method.</span><pre>edit_psp()</pre></a></li>
 <li class="method public "><a href="#method_get_account_details" title="get_account_details() :: Account details (max number of monitors that can be added and number of up/down/paused monitors) can be grabbed
 using this method."><span class="description">Account details (max number of monitors that can be added and number of up/down/paused monitors) can be grabbed
 using this method.</span><pre>get_account_details()</pre></a></li>
 <li class="method public "><a href="#method_get_alert_contacts" title="get_alert_contacts() :: The list of alert contacts can be called with this method."><span class="description">The list of alert contacts can be called with this method.</span><pre>get_alert_contacts()</pre></a></li>
 <li class="method public "><a href="#method_get_monitors" title="get_monitors() :: Get monitor info."><span class="description">Get monitor info.</span><pre>get_monitors()</pre></a></li>
+<li class="method public "><a href="#method_get_mwindows" title="get_mwindows() :: The list of maintenance windows can be called with this method."><span class="description">The list of maintenance windows can be called with this method.</span><pre>get_mwindows()</pre></a></li>
+<li class="method public "><a href="#method_get_psps" title="get_psps() :: The list of alert contacts can be called with this method."><span class="description">The list of alert contacts can be called with this method.</span><pre>get_psps()</pre></a></li>
+<li class="method public "><a href="#method_new_alert_contact" title="new_alert_contact() :: New alert contacts of any type (mobile/SMS alert contacts are not supported
+yet) can be created using this method."><span class="description">New alert contacts of any type (mobile/SMS alert contacts are not supported
+yet) can be created using this method.</span><pre>new_alert_contact()</pre></a></li>
 <li class="method public "><a href="#method_new_monitor" title="new_monitor() :: New monitors of any type can be created using this method."><span class="description">New monitors of any type can be created using this method.</span><pre>new_monitor()</pre></a></li>
+<li class="method public "><a href="#method_new_mwindow" title="new_mwindow() :: New maintenance windows can be created using this method."><span class="description">New maintenance windows can be created using this method.</span><pre>new_mwindow()</pre></a></li>
+<li class="method public "><a href="#method_new_psp" title="new_psp() :: New public status pages can be created using this method."><span class="description">New public status pages can be created using this method.</span><pre>new_psp()</pre></a></li>
 <li class="method public "><a href="#method_response_code_msg" title="response_code_msg() :: HTTP response code messages."><span class="description">HTTP response code messages.</span><pre>response_code_msg()</pre></a></li>
 <li class="method public "><a href="#method_status_tostring" title="status_tostring() :: Converts the status ID to the corresponding status string."><span class="description">Converts the status ID to the corresponding status string.</span><pre>status_tostring()</pre></a></li>
 </ul>
@@ -150,6 +163,25 @@ as is.</span><pre>get_implode()</pre></a></li>
 <code>String</code>Alert type String (SMS|E-mail|Twitter DM|Boxcar|Web-Hook|Pushbullet|Zapier|Pushover|HipChat|Slack).</div>
 </div></div>
 </div>
+<a id="method_delete_alert_contact"></a><div class="element clickable method public method_delete_alert_contact " data-toggle="collapse" data-target=".method_delete_alert_contact .collapse" title="public">
+<h2>Alert contacts can be deleted using this method.</h2>
+<pre>delete_alert_contact(array $args<code> = array()</code>) : array</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$args</h4>
+<code>array</code><p>Arguments for deleteAlertContact request.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Request results.</div>
+</div></div>
+</div>
 <a id="method_delete_monitor"></a><div class="element clickable method public method_delete_monitor " data-toggle="collapse" data-target=".method_delete_monitor .collapse" title="public">
 <h2>Monitors can be deleted using this method.</h2>
 <pre>delete_monitor(integer $monitor_id) : array</pre>
@@ -164,6 +196,63 @@ as is.</span><pre>get_implode()</pre></a></li>
 <div class="subelement argument">
 <h4>$monitor_id</h4>
 <code>integer</code><p>ID of monitor.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Request results.</div>
+</div></div>
+</div>
+<a id="method_delete_mwindow"></a><div class="element clickable method public method_delete_mwindow " data-toggle="collapse" data-target=".method_delete_mwindow .collapse" title="public">
+<h2>Maintenance windows can be deleted using this method.</h2>
+<pre>delete_mwindow(array $args<code> = array()</code>) : array</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$args</h4>
+<code>array</code><p>Arguments for deleteMWindow request.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Request results.</div>
+</div></div>
+</div>
+<a id="method_delete_psp"></a><div class="element clickable method public method_delete_psp " data-toggle="collapse" data-target=".method_delete_psp .collapse" title="public">
+<h2>Alert contacts can be deleted using this method.</h2>
+<pre>delete_psp(array $args<code> = array()</code>) : array</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$args</h4>
+<code>array</code><p>Arguments for deletePSP request.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Request results.</div>
+</div></div>
+</div>
+<a id="method_edit_alert_contact"></a><div class="element clickable method public method_edit_alert_contact " data-toggle="collapse" data-target=".method_edit_alert_contact .collapse" title="public">
+<h2>Alert contacts can be edited using this method.</h2>
+<pre>edit_alert_contact(array $args<code> = array()</code>) : array</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$args</h4>
+<code>array</code><p>Arguments for editAlertContact request.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
 <code>array</code>Request results.</div>
@@ -188,6 +277,44 @@ cases, deleting the monitor and re-creating a new one is adviced.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
 <code>array</code>Array of monitor info.</div>
+</div></div>
+</div>
+<a id="method_edit_mwindow"></a><div class="element clickable method public method_edit_mwindow " data-toggle="collapse" data-target=".method_edit_mwindow .collapse" title="public">
+<h2>Maintenance windows can be edited using this method.</h2>
+<pre>edit_mwindow(array $args<code> = array()</code>) : array</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$args</h4>
+<code>array</code><p>Arguments for editMWindow request.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Request results.</div>
+</div></div>
+</div>
+<a id="method_edit_psp"></a><div class="element clickable method public method_edit_psp " data-toggle="collapse" data-target=".method_edit_psp .collapse" title="public">
+<h2>Public status pages can be edited using this method.</h2>
+<pre>edit_psp(array $args<code> = array()</code>) : array</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$args</h4>
+<code>array</code><p>Arguments for editPSP request.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Request results.</div>
 </div></div>
 </div>
 <a id="method_get_account_details"></a><div class="element clickable method public method_get_account_details " data-toggle="collapse" data-target=".method_get_account_details .collapse" title="public">
@@ -244,6 +371,65 @@ using this method.</h2>
 <code>array</code>Array of monitor info.</div>
 </div></div>
 </div>
+<a id="method_get_mwindows"></a><div class="element clickable method public method_get_mwindows " data-toggle="collapse" data-target=".method_get_mwindows .collapse" title="public">
+<h2>The list of maintenance windows can be called with this method.</h2>
+<pre>get_mwindows(array $args<code> = array()</code>) : array</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$args</h4>
+<code>array</code><p>Arguments for getMWindows request.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Request results.</div>
+</div></div>
+</div>
+<a id="method_get_psps"></a><div class="element clickable method public method_get_psps " data-toggle="collapse" data-target=".method_get_psps .collapse" title="public">
+<h2>The list of alert contacts can be called with this method.</h2>
+<pre>get_psps(array $args<code> = array()</code>) : array</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$args</h4>
+<code>array</code><p>Arguments for getPSPs request.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Request results.</div>
+</div></div>
+</div>
+<a id="method_new_alert_contact"></a><div class="element clickable method public method_new_alert_contact " data-toggle="collapse" data-target=".method_new_alert_contact .collapse" title="public">
+<h2>New alert contacts of any type (mobile/SMS alert contacts are not supported
+yet) can be created using this method.</h2>
+<pre>new_alert_contact(array $args<code> = array()</code>) : array</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>The alert contacts created using the API are validated with the same way
+as they were created from uptimerobot.com (activation link for e-mails, etc.).</p></div>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$args</h4>
+<code>array</code><p>Arguments for newAlertContact request.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Request results.</div>
+</div></div>
+</div>
 <a id="method_new_monitor"></a><div class="element clickable method public method_new_monitor " data-toggle="collapse" data-target=".method_new_monitor .collapse" title="public">
 <h2>New monitors of any type can be created using this method.</h2>
 <pre>new_monitor(array $args) : array</pre>
@@ -258,6 +444,44 @@ using this method.</h2>
 <div class="subelement argument">
 <h4>$args</h4>
 <code>array</code><p>Args to be sent into newMonitor request.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Request results.</div>
+</div></div>
+</div>
+<a id="method_new_mwindow"></a><div class="element clickable method public method_new_mwindow " data-toggle="collapse" data-target=".method_new_mwindow .collapse" title="public">
+<h2>New maintenance windows can be created using this method.</h2>
+<pre>new_mwindow(array $args<code> = array()</code>) : array</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$args</h4>
+<code>array</code><p>Arguments for newMWindows request.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Request results.</div>
+</div></div>
+</div>
+<a id="method_new_psp"></a><div class="element clickable method public method_new_psp " data-toggle="collapse" data-target=".method_new_psp .collapse" title="public">
+<h2>New public status pages can be created using this method.</h2>
+<pre>new_psp(array $args<code> = array()</code>) : array</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$args</h4>
+<code>array</code><p>Arguments for newPSP request.</p></div>
 <h3>Returns</h3>
 <div class="subelement response">
 <code>array</code>Request results.</div>
@@ -387,7 +611,7 @@ as is.</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.8.5</a> and<br>
-            generated on 2017-07-19T12:28:27-07:00.<br></footer></div>
+            generated on 2017-08-01T22:27:40-07:00.<br></footer></div>
 </div>
 </body>
 </html>
