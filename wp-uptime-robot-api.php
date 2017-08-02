@@ -93,17 +93,15 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 
 			$response = wp_remote_post( $request, $this->args );
 			$code = wp_remote_retrieve_response_code( $response );
+      $body = wp_remote_retrieve_body( $response );
+
+      if ( 'json' === static::$format && null === static::$callback  ) {
+				$body = json_decode( $body );
+			}
 
 			if ( 200 !== $code ) {
-				return new WP_Error( 'response-error', sprintf( __( 'Server response code: %d', 'wp-uptime-robot-api' ), $code ) );
+				return new WP_Error( 'response-error', sprintf( __( 'Server response code: %d', 'wp-uptime-robot-api' ), $code ),$body );
 			}
-
-			$body = wp_remote_retrieve_body( $response );
-
-			if ( 'json' === static::$format && null === static::$callback  ) {
-				return json_decode( $body );
-			}
-
 			return $body;
 		}
 
@@ -424,13 +422,13 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 * @param  array $args Arguments for editAlertContact request.
 		 * @return array       Request results.
 		 */
-		public function edit_alert_contacts( $args = array() ) {
+		public function edit_alert_contact( $args = array() ) {
 
 			if (! isset( $args['id']) ){
 				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'wp-uptime-robot-api' ) );
 			}
 
-			$request = $this->base_uri . '/editAlertContacts';
+			$request = $this->base_uri . '/editAlertContact';
 			$this->args['body']['id'] = $args['id'];
 
 			if ( isset( $args['id'] ) ) {
@@ -503,13 +501,13 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 * @param  array $args Arguments for newMWindows request.
 		 * @return array       Request results.
 		 */
-		public function new_mwindows( $args = array() ) {
+		public function new_mwindow( $args = array() ) {
 
 			if (! isset( $args['friendly_name']) || ! isset( $args['type'] )|| ! isset( $args['value'] )|| ! isset( $args['start_time'] )|| ! isset( $args['duration'] )) {
 				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'wp-uptime-robot-api' ) );
 			}
 
-			$request = $this->base_uri . '/newMWindows';
+			$request = $this->base_uri . '/newMWindow';
 			$this->args['body']['friendly_name'] = $args['friendly_name'];
 			$this->args['body']['type'] = $args['type'];
 			$this->args['body']['value'] = $args['value'];
@@ -540,16 +538,16 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		 *
 		 * @api
 		 *
-		 * @param  array $args Arguments for editMWindows request.
+		 * @param  array $args Arguments for editMWindow request.
 		 * @return array       Request results.
 		 */
-		public function edit_mwindows( $args = array() ) {
+		public function edit_mwindow( $args = array() ) {
 
 			if (! isset( $args['friendly_name']) || ! isset( $args['type'] )|| ! isset( $args['value'] )|| ! isset( $args['start_time'] )|| ! isset( $args['duration'] )) {
 				return new WP_Error( 'required-fields', __( 'Required fields are empty', 'wp-uptime-robot-api' ) );
 			}
 
-			$request = $this->base_uri . '/editMWindows';
+			$request = $this->base_uri . '/editMWindow';
 			$this->args['body']['friendly_name'] = $args['friendly_name'];
 			$this->args['body']['type'] = $args['type'];
 			$this->args['body']['value'] = $args['value'];
@@ -666,7 +664,6 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 		}
 		/**
 		 * Public status pages can be edited using this method.
-		 *
 		 * @api
 		 *
 		 * @param  array $args Arguments for editPSP request.
