@@ -99,10 +99,19 @@ if ( ! class_exists( 'UptimeRobotApi' ) ) {
 				$body = json_decode( $body );
 			}
 
+			$this->clear();
+
 			if ( 200 !== $code ) {
 				return new WP_Error( 'response-error', sprintf( __( 'Server response code: %d', 'wp-uptime-robot-api' ), $code ),$body );
 			}
 			return $body;
+		}
+
+		/**
+		 * Clear query data.
+		 */
+		protected function clear() {
+			$this->args = array();
 		}
 
 		/**
